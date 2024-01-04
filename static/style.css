@@ -1,0 +1,111 @@
+a{
+	color: #B200CC;
+	text-decoration: none;
+}
+
+body{
+    font-family: 'Calibri', sans-serif;
+    font-size: 17px;
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+div#input-parent{
+	background-color: #DEECFA;
+	display: flex;
+  	justify-content: center;
+}
+
+div#input{
+    background-color: #FFFFFF;
+    border-style: solid;
+    width: 440px;
+    padding: 10px;
+}
+
+div#upload-text{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+div#form{
+    display: inline-block;
+}
+
+div.figure-container{
+	background-color: #DEECFA;
+	display: flex;
+	flex-direction: row;
+  	justify-content: center;
+	gap: 10px;
+	margin-bottom: 10px;
+	flex-wrap: wrap;
+}
+
+div.caption{
+	font-size: 15px;
+	text-align: center;
+}
+
+div.table-parent{
+	background-color: #DEECFA;
+	display: flex;
+	flex-direction: row;
+  	justify-content: center;
+	gap: 100px;
+	margin-bottom: 10px;
+}
+
+h1{
+    text-align: center;
+}
+
+img{
+	border: solid;
+}
+
+img.one{
+	width: 50%;
+}
+
+img.two{
+	width: 27%;
+	margin-right: 10px;
+}
+
+img.three{
+	width: 27%;
+}
+
+img#four{
+	width: 50px;
+}
+
+img.four{
+	width: 31%;
+	margin-right: 10px;
+}
+
+img.five{
+	width: 17.5%;
+}
+
+sup{
+	color: #0045CC;
+}
+
+table{
+	width: 250px;
+	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+table.stats {
+	text-align: left;
+}
+
+table#architecture{
+	border: 1px solid;
+	width: 300px;
+}

@@ -1,0 +1,261 @@
+<!doctype html>
+
+<html>
+    <head>
+        <title>Descry OCR | Adlam</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <h1>Adlam</h1>
+        <div id="input-parent">
+            <div id="input">
+                <div id="upload-text">
+                    Upload an image:
+                </div>
+                <div id="form">
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="file" name="file">
+                        <input type="submit" value="Upload">
+                    </form>
+                </div>
+                <br>
+                Model prediction: {{pred}}
+            </div>
+        </div>
+        </div>
+        <div id="1">
+            <h2>1. Introduction</h2>
+            <p><a href="https://en.wikipedia.org/wiki/Adlam_script">Adlam</a> is an alphabet used to write the <a href="https://en.wikipedia.org/wiki/Fula_language">Fulani</a> language spoken in West Africa. It was invented in 1989 by two Guinean brothers, Abdoulaye and Ibrahima Barry, when they were children<sup>[1]</sup>. The name Adlam is an acronym of the Fulani phrase <i>Alkule Dandayɗe Leñol Mulugol</i> (𞤀𞤤𞤳𞤵𞤤𞤫 𞤁𞤢𞤲𞤣𞤢𞤴𞤯𞤫 𞤂𞤫𞤻𞤮𞤤 𞤃𞤵𞤤𞤵𞤺𞤮𞤤)—"the alphabet which protects the peoples from vanishing"<sup>[2]</sup>. It also stands for the first four letters of the alphabet: A, D, L, and M<sup>[2]</sup>.</p>
+            <p>Adlam is written right to left and includes 28 common letters + 6 supplemental letters used only in loanwords. Uppercase and lowercase letters are distinguished. Additionally, Adlam has its own diacritics, digits, and punctuation marks.
+            <p>The script has been supported by Unicode since 2016<sup>[3]</sup>. In 2019, the shapes of the letters were revised for purposes of convenience and legibility<sup>[4]</sup>. Currently there are three font families for the script: Google's Noto Sans Adlam<sup>[5]</sup>, Adobe's Kigelia Adlam<sup>[6]</sup>, and Microsoft's ADLaM Display<sup>[3]</sup>.</p>
+            <div class="figure-container">
+                <img class="three" src="{{ url_for('static', filename='1.png') }}">
+                <img class="three" src="{{ url_for('static', filename='2.png') }}">
+                <img class="three" src="{{ url_for('static', filename='3.png') }}">
+            </div>
+            <div class="caption">
+                In 2022, Microsoft issued a series of typographic artworks in celebration of the creation of ADLaM Display<sup>[3]</sup>
+            </div>
+            <p>This project focuses on letters in their post-2019 shapes. Since uppercase and lowercase letters are often distinguished only by size, they are classified into the same output class.</p>
+            <div class="table-parent">
+                <table rules="all">
+                    <tr>
+                        <th width=33%>Uppercase</th>
+                        <th width=33%>Lowercase</th>
+                        <th width=33%>IPA</th>
+                    </tr>
+                    <tr>
+                        <td>𞤀</td>
+                        <td>𞤢</td>
+                        <td>a</td>
+                    </tr>
+                    <tr>
+                        <td>𞤁</td>
+                        <td>𞤣</td>
+                        <td>d</td>
+                    </tr>
+                    <tr>
+                        <td>𞤂</td>
+                        <td>𞤤</td>
+                        <td>l</td>
+                    </tr>
+                    <tr>
+                        <td>𞤃</td>
+                        <td>𞤥</td>
+                        <td>m</td>
+                    </tr>
+                    <tr>
+                        <td>𞤄</td>
+                        <td>𞤦</td>
+                        <td>b</td>
+                    </tr>
+                    <tr>
+                        <td>𞤅</td>
+                        <td>𞤧</td>
+                        <td>s</td>
+                    </tr>
+                    <tr>
+                        <td>𞤆</td>
+                        <td>𞤨</td>
+                        <td>p</td>
+                    </tr>
+                    <tr>
+                        <td>𞤇</td>
+                        <td>𞤩</td>
+                        <td>ɓ</td>
+                    </tr>
+                    <tr>
+                        <td>𞤈</td>
+                        <td>𞤪</td>
+                        <td>r</td>
+                    </tr>
+                    <tr>
+                        <td>𞤉</td>
+                        <td>𞤫</td>
+                        <td>e</td>
+                    </tr>
+                    <tr>
+                        <td>𞤊</td>
+                        <td>𞤬</td>
+                        <td>f</td>
+                    </tr>
+                    <tr>
+                        <td>𞤋</td>
+                        <td>𞤭</td>
+                        <td>i</td>
+                    </tr>
+                    <tr>
+                        <td>𞤌</td>
+                        <td>𞤮</td>
+                        <td>ɔ</td>
+                    </tr>
+                    <tr>
+                        <td>𞤍</td>
+                        <td>𞤯</td>
+                        <td>ɗ</td>
+                    </tr>
+                </table>
+                <table rules="all">
+                    <tr>
+                        <th width=33%>Uppercase</th>
+                        <th width=33%>Lowercase</th>
+                        <th width=33%>IPA</th>
+                    </tr>
+                    <tr>
+                        <td>𞤎</td>
+                        <td>𞤰</td>
+                        <td>ʔʲ</td>
+                    </tr>
+                    <tr>
+                        <td>𞤏</td>
+                        <td>𞤱</td>
+                        <td>w</td>
+                    </tr>
+                    <tr>
+                        <td>𞤐</td>
+                        <td>𞤲</td>
+                        <td>n</td>
+                    </tr>
+                    <tr>
+                        <td>𞤑</td>
+                        <td>𞤳</td>
+                        <td>k</td>
+                    </tr>
+                    <tr>
+                        <td>𞤒</td>
+                        <td>𞤴</td>
+                        <td>j</td>
+                    </tr>
+                    <tr>
+                        <td>𞤓</td>
+                        <td>𞤵</td>
+                        <td>u</td>
+                    </tr>
+                    <tr>
+                        <td>𞤔</td>
+                        <td>𞤶</td>
+                        <td>d͡ʒ</td>
+                    </tr>
+                    <tr>
+                        <td>𞤕</td>
+                        <td>𞤷</td>
+                        <td>t͡ʃ</td>
+                    </tr>
+                    <tr>
+                        <td>𞤖</td>
+                        <td>𞤸</td>
+                        <td>h</td>
+                    </tr>
+                    <tr>
+                        <td>𞤗</td>
+                        <td>𞤹</td>
+                        <td>q</td>
+                    </tr>
+                    <tr>
+                        <td>𞤘</td>
+                        <td>𞤺</td>
+                        <td>g</td>
+                    </tr>
+                    <tr>
+                        <td>𞤙</td>
+                        <td>𞤻</td>
+                        <td>ɲ</td>
+                    </tr>
+                    <tr>
+                        <td>𞤚</td>
+                        <td>𞤼</td>
+                        <td>t</td>
+                    </tr>
+                    <tr>
+                        <td>𞤛</td>
+                        <td>𞤽</td>
+                        <td>ŋ</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="caption">
+                Characters considered for the project
+            </div>
+        </div>
+        <div id="2">
+            <h2>2. Statistics</h2>
+            <div class="table-parent">
+                <table class="stats" rules="all" cellpadding="5">
+                    <col>
+                    <tr>
+                        <th style="min-width: 300px;" scope="row"># of characters in the primary dataset</th>
+                        <td style="min-width: 300px;">1288 (644 each uppercase & lowercase)</td>
+                    </tr>
+                    <tr>
+                        <th style="min-width: 300px;" scope="row"># of trainable parameters</th>
+                        <td style="min-width: 300px;">7 501 724</td>
+                    </tr>
+                    <tr>
+                        <th style="min-width: 300px;" scope="row">Accuracy on the test set</th>
+                        <td style="min-width: 300px;">99.81%</td>
+                      </tr>
+                </table>
+            </div>
+        </div>
+        <div id="3">
+            <h2>3. Filter Visualization</h2>
+            <p>The most common interpretable pattern is diagonal lines. Both bottom-left to top-right and top-left to bottom-right diagonals are very frequent; these dominate at high filter id ranges ([layer]-60 and above).</p>
+            <div class="figure-container">
+                <img class="two" src="{{ url_for('static', filename='512-244.png') }}">
+                <img class="two" src="{{ url_for('static', filename='512-497.png') }}">
+            </div>
+            <div class="caption">
+                Conv3-512-244 (bottom-left to top-right) and Conv3-512-497 (top-left to bottom-right)
+            </div>
+            <p>Filter 32 in layers Conv3-[128, 256, 512] shows focus on a particular region of the image.</p>
+            <div class="figure-container">
+                <img class="three" src="{{ url_for('static', filename='128-32.png') }}">
+                <img class="three" src="{{ url_for('static', filename='256-32.png') }}">
+                <img class="three" src="{{ url_for('static', filename='512-32.png') }}">
+            </div>
+            <div class="caption">
+                Conv3-128-32 (focus on top middle), Conv3-256-32 (bottom right corner), and Conv3-512-32 (top right corner)
+            </div>
+            <p>Layer Conv3-1024 is rich in interesting (and sometimes unique) patterns.</p>
+            <div class="figure-container">
+                <img class="four" src="{{ url_for('static', filename='1024-462.png') }}">
+                <img class="four" src="{{ url_for('static', filename='1024-659.png') }}">
+                <img class="four" src="{{ url_for('static', filename='1024-573.png') }}">
+                <img class="four" src="{{ url_for('static', filename='1024-827.png') }}">
+            </div>
+            <div class="caption">
+                Conv3-1024-462 ('corn ears'), Conv3-1024-659 ('mountains'), Conv3-1024-573 and Conv3-1024-827 ('staircase')
+            </div>
+        </div>
+        <div id="4">
+            <h2>4. Citations</h2>
+            <p><span style="color: #0045CC;">[1]</span> Ulrich, Alexis. "ADLaM: the story of an artificial script." Of Languages and Numbers, <a href="https://www.languagesandnumbers.com/articles/en/ADLaM/">www.languagesandnumbers.com/articles/en/ADLaM/</a>.</p>
+            <p><span style="color: #0045CC;">[2]</span> Everson, Michael. "Revised proposal for encoding the Adlam script in the SMP of the UCS." Unicode, 2014, <a href="https://www.unicode.org/L2/L2014/14219r-n4628-adlam.pdf">www.unicode.org/L2/L2014/14219r-n4628-adlam.pdf</a>.</p>
+            <p><span style="color: #0045CC;">[3]</span> "Can an alphabet save a culture?" Microsoft Unlocked, <a href="https://unlocked.microsoft.com/adlam-can-an-alphabet-save-a-culture/">unlocked.microsoft.com/adlam-can-an-alphabet-save-a-culture/</a>.</p>
+            <p><span style="color: #0045CC;">[4]</span> Patel, Neil, et al. "Replacement of Adlam Reference Font in Codesheet to Updated Design." Unicode, 2019, <a href="https://www.unicode.org/L2/L2019/19119r-adlam-font-repl.pdf">www.unicode.org/L2/L2019/19119r-adlam-font-repl.pdf</a>.</p>
+            <p><span style="color: #0045CC;">[5]</span> "Noto Sans Adlam." Google Fonts, <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Adlam">fonts.google.com/noto/specimen/Noto+Sans+Adlam</a>.</p>
+            <p><span style="color: #0045CC;">[6]</span> "Kigelia Adlam." Adobe Fonts, <a href="https://fonts.adobe.com/fonts/kigelia-adlam">fonts.adobe.com/fonts/kigelia-adlam</a>.</p>
+        </div>
+    </body>
+</html>
