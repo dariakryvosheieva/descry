@@ -99,11 +99,11 @@ We used gradient ascent (code adapted from <a href="https://keras.io/examples/vi
 Filters with the same index within a layer yield very similar activation patterns across all or most layers.
 
 <div align="center">
-  	<img src="../assets/64-37.png" width="160" />
-  	<img src="../assets/128-37.png" width="160" /> 
-  	<img src="../assets/256-37.png" width="160" />
-	<img src="../assets/512-37.png" width="160" />
-	<img src="../assets/1024-37.png" width="160" />
+  	<img src="../assets/64-37.png" width="150" />
+  	<img src="../assets/128-37.png" width="150" /> 
+  	<img src="../assets/256-37.png" width="150" />
+	<img src="../assets/512-37.png" width="150" />
+	<img src="../assets/1024-37.png" width="150" />
 </div>
 <div align="center">
 	Adlam CNN, filter 37 in layers Conv3-[64, 128, 256, 512, 1024] (left to right)
@@ -114,7 +114,7 @@ Filters with the same index within a layer yield very similar activation pattern
 Filters with random activation patterns are interspersed between those with interpretable patterns.
 
 <div align="center">
-  	<img src="../assets/nko-64-42.png" width="160" />
+  	<img src="../assets/nko-64-42.png" width="150" />
 </div>
 <div align="center">
 	N'Ko CNN, Conv3-64-42: an example of a filter with a random activation pattern.
@@ -125,9 +125,9 @@ Filters with random activation patterns are interspersed between those with inte
 For small filter ids, the dominant interpretable pattern is high activation along the borders and low activation in the middle.
 
 <div align="center">
-  	<img src="../assets/kayahli-64-11.png" width="160" />
-	<img src="../assets/kayahli-128-26.png" width="160" />
-	<img src="../assets/kayahli-256-45.png" width="160" />
+  	<img src="../assets/kayahli-64-11.png" width="150" />
+	<img src="../assets/kayahli-128-26.png" width="150" />
+	<img src="../assets/kayahli-256-45.png" width="150" />
 </div>
 <div align="center">
 	Kayah Li CNN, filters Conv3-[64-11, 128-26, 256-45] (left to right)
@@ -138,7 +138,7 @@ For small filter ids, the dominant interpretable pattern is high activation alon
 For higher filter ids, the diversity of patterns increases. One common pattern is diagonal lines; these occur especially frequently in the Adlam CNN.
 
 <div align="center">
-  	<img src="../assets/1024-337.png" width="160" />
+  	<img src="../assets/1024-337.png" width="150" />
 </div>
 <div align="center">
 	Adlam CNN, Conv3-1024-337: an example of the diagonal line pattern.
