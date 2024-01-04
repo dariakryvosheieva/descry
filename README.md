@@ -38,7 +38,7 @@ Currently, the project supports three alphabets: **Adlam**, **N'Ko**, and **Kaya
 > 2. *(obsolete)* make known, reveal
 >
 > **Etymology (sense 1)**: ultimately from Latin *dēscrībere* 'describe', from *dē-* + *scrībere* 'write'.
-> <div style="text-align: right"> <a href="https://www.merriam-webster.com/dictionary/descry">Merriam-Webster</a> </div>
+> <div align="right"> <a href="https://www.merriam-webster.com/dictionary/descry">Merriam-Webster</a> </div>
 
 This name was chosen because its meaning related to seeing, together with its origins in the Latin verb 'to write', make it perfect for a project that applies computer vision to writing systems.
 
@@ -56,41 +56,41 @@ Making the datasets suitable for training required additional preprocessing step
 
 We trained a family of CNNs with the same general architecture inspired by <a href="https://www.jstage.jst.go.jp/article/transinf/E106.D/7/E106.D_2022EDL8098/_pdf/-char/en">EnsNet</a>. Compared to EnsNet, our models are simplified (most importantly lacking subnetworks) but have more output classes (corresponding to the number of letters in the alphabet). All models were trained on 10 epochs with batch size set to 64.
 
-<center>
+<div align="center">
 
 <table style="border: 1px solid; text-align: center;" rules="all">
 	<tr>
-		<td>Input: 28x28 character image</td>
+		<td><div align="center">Input: 28x28 character image</div></td>
 	</tr>
 	<tr>
-		<td>Conv3-64 <br> BatchNormalization <br> Dropout(0.35) <br> Conv3-128 <br> BatchNormalization <br> Dropout(0.35) <br> Conv3-256 <br> BatchNormalization</td>
+		<td><div align="center">Conv3-64 <br> BatchNormalization <br> Dropout(0.35) <br> Conv3-128 <br> BatchNormalization <br> Dropout(0.35) <br> Conv3-256 <br> BatchNormalization</div></td>
 	</tr>
 	<tr>
-		<td>maxpool(2x2)</td>
+		<td><div align="center">maxpool(2x2)</div></td>
 	</tr>
 	<tr>
-		<td>Dropout(0.35) <br> Conv3-512 <br> BatchNormalization <br> Dropout(0.35) <br> Conv3-1024 <br> BatchNormalization</td>
+		<td><div align="center">Dropout(0.35) <br> Conv3-512 <br> BatchNormalization <br> Dropout(0.35) <br> Conv3-1024 <br> BatchNormalization</div></td>
 	</tr>
 	<tr>
-		<td>maxpool(2x2)</td>
+		<td><div align="center">maxpool(2x2)</div></td>
 	</tr>
 	<tr>
-		<td>Dropout(0.35)</td>
+		<td><div align="center">Dropout(0.35)</div></td>
 	</tr>
 	<tr>
-		<td>FC-512 <br> BatchNormalization <br> Dropout(0.35)</td>
+		<td><div align="center">FC-512 <br> BatchNormalization <br> Dropout(0.35)</div></td>
 	</tr>
 	<tr>
-		<td>Flatten</td>
+		<td><div align="center">Flatten</div></td>
 	</tr>
 	<tr>
-		<td>FC-num_classes + softmax</td>
+		<td><div align="center">FC-num_classes + softmax</div></td>
 	</tr>
 </table>
 
 The structure of the CNNs
 
-</center>
+</div>
 
 ### Interpretability
 
@@ -98,11 +98,51 @@ We used gradient ascent (code adapted from <a href="https://keras.io/examples/vi
 
 Filters with the same index within a layer yield very similar activation patterns across all or most layers.
 
+<div align="center">
+  	<img src="../assets/64-37.png" width="180" />
+  	<img src="../assets/128-37.png" width="180" /> 
+  	<img src="../assets/256-37.png" width="180" />
+	<img src="../assets/512-37.png" width="180" />
+	<img src="../assets/1024-37.png" width="180" />
+</div>
+<div align="center">
+	Adlam CNN, filter 37 in layers Conv3-[64, 128, 256, 512, 1024] (left to right)
+</div>
+
+<br>
+
 Filters with random activation patterns are interspersed between those with interpretable patterns.
+
+<div align="center">
+  	<img src="../assets/nko-64-42.png" width="180" />
+</div>
+<div align="center">
+	N'Ko CNN, Conv3-64-42: an example of a filter with a random activation pattern.
+</div>
+
+<br>
 
 For small filter ids, the dominant interpretable pattern is high activation along the borders and low activation in the middle.
 
+<div align="center">
+  	<img src="../assets/kayahli-64-11.png" width="180" />
+	<img src="../assets/kayahli-128-26.png" width="180" />
+	<img src="../assets/kayahli-256-45.png" width="180" />
+</div>
+<div align="center">
+	Kayah Li CNN, filters Conv3-[64-11, 128-26, 256-45] (left to right)
+</div>
+
+<br>
+
 For higher filter ids, the diversity of patterns increases. One common pattern is diagonal lines; these occur especially frequently in the Adlam CNN.
+
+<div align="center">
+  	<img src="../assets/1024-337.png" width="180" />
+</div>
+<div align="center">
+	Adlam CNN, Conv3-1024-337: an example of the diagonal line pattern.
+</div>
 
 ## Installation Guide
 
@@ -110,7 +150,7 @@ For higher filter ids, the diversity of patterns increases. One common pattern i
 
 This can be done in two ways. If you have Git, clone the repo by typing the following into your command prompt:
 ```shell
-git clone https://github.com/dariakryvosheieva/Descry.git
+git clone https://github.com/dariakryvosheieva/descry.git
 ```
 Otherwise, click `<> Code` > `Download ZIP` and then unzip the folder.
 
