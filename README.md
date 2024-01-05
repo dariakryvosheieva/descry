@@ -107,7 +107,7 @@ Filters with random activation patterns are interspersed between those with inte
 
 <br>
 
-For small filter ids, the dominant interpretable pattern is high activation along the borders and low activation in the middle.
+For filters with small ids within a layer, the dominant interpretable pattern is high activation along the borders and low activation in the middle.
 
 <div align="center">
   	<img src="../assets/kayahli-64-11.png" width="150" />
