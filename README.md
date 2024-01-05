@@ -96,21 +96,6 @@ The structure of the CNNs
 
 We used gradient ascent (code adapted from <a href="https://keras.io/examples/vision/visualizing_what_convnets_learn/">keras.io</a>) to generate artificial images that maximize filter activations.
 
-Filters with the same index within a layer yield very similar activation patterns across all or most layers.
-
-<div align="center">
-  	<img src="../assets/64-37.png" width="150" />
-  	<img src="../assets/128-37.png" width="150" /> 
-  	<img src="../assets/256-37.png" width="150" />
-	<img src="../assets/512-37.png" width="150" />
-	<img src="../assets/1024-37.png" width="150" />
-</div>
-<div align="center">
-	Adlam CNN, filter 37 in layers Conv3-[64, 128, 256, 512, 1024] (left to right)
-</div>
-
-<br>
-
 Filters with random activation patterns are interspersed between those with interpretable patterns.
 
 <div align="center">
@@ -122,7 +107,7 @@ Filters with random activation patterns are interspersed between those with inte
 
 <br>
 
-For small filter ids, the dominant interpretable pattern is high activation along the borders and low activation in the middle.
+For filters with small ids within a layer, the dominant interpretable pattern is high activation along the borders and low activation in the middle.
 
 <div align="center">
   	<img src="../assets/kayahli-64-11.png" width="150" />
@@ -130,7 +115,7 @@ For small filter ids, the dominant interpretable pattern is high activation alon
 	<img src="../assets/kayahli-256-45.png" width="150" />
 </div>
 <div align="center">
-	Kayah Li CNN, filters Conv3-[64-11, 128-26, 256-45] (left to right)
+	Kayah Li CNN, Conv3-[64-11, 128-26, 256-45]
 </div>
 
 <br>
@@ -143,6 +128,38 @@ For higher filter ids, the diversity of patterns increases. One common pattern i
 <div align="center">
 	Adlam CNN, Conv3-1024-337: an example of the diagonal line pattern.
 </div>
+
+<br>
+
+Filters with the same index within a layer yield very similar activation patterns across all or most layers.
+
+<div align="center">
+  	<img src="../assets/64-37.png" width="150" />
+  	<img src="../assets/128-37.png" width="150" /> 
+  	<img src="../assets/256-37.png" width="150" />
+	<img src="../assets/512-37.png" width="150" />
+	<img src="../assets/1024-37.png" width="150" />
+</div>
+<div align="center">
+	Similar across all layers: Adlam CNN, filter 37 in layers Conv3-[64, 128, 256, 512, 1024]
+</div>
+
+<br>
+
+<div align="center">
+  	<img src="../assets/nko-64-18.png" width="150" />
+  	<img src="../assets/nko-128-18.png" width="150" /> 
+  	<img src="../assets/nko-256-18.png" width="150" />
+	<img src="../assets/nko-512-18.png" width="150" />
+	<img src="../assets/nko-1024-18.png" width="150" />
+</div>
+<div align="center">
+	Similar across most but not all layers: N'Ko CNN, filter 18 in layers Conv3-[64, 128, 256, 512, 1024] — 1024 is different, having no diagonal lines inside
+</div>
+
+<br>
+
+See the app for details specific to each CNN.
 
 ## Installation Guide
 
