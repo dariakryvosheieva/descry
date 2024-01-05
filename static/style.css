@@ -10,6 +10,30 @@ body{
 	margin-right: 20%;
 }
 
+button {
+	width: 100px;
+	height: 30px;
+	font-size: 14pt;
+    border: none;
+    border-radius: 4pt;
+    background-color: #e1e1e1;
+}
+
+button:hover {
+    background-color: #b6ceff;
+    cursor: pointer;
+}
+
+div.hidden {
+	width: 100px;
+}
+
+div.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 div#input-parent{
 	background-color: #DEECFA;
 	display: flex;
