@@ -157,6 +157,10 @@ Filters with the same index within a layer yield very similar activation pattern
 	Similar across most but not all layers: N'Ko CNN, filter 18 in layers Conv3-[64, 128, 256, 512, 1024] — 1024 is different, having no diagonal lines inside
 </div>
 
+<br>
+
+See the app for details specific to each CNN.
+
 ## Installation Guide
 
 ### 1. Install the repository on your local machine
