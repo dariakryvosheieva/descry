@@ -114,6 +114,10 @@ img.five{
 	width: 17.5%;
 }
 
+p {
+	line-height: 1.2;
+}
+
 sup{
 	color: #0045CC;
 }
