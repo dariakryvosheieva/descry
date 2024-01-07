@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div>
-                <h2>1. Introduction</h2>
+                <h2>Introduction</h2>
                 <p><a href="https://en.wikipedia.org/wiki/Kayah_Li_alphabet">Kayah Li</a> is an alphabet used to write dialects of the <a href="https://en.wikipedia.org/wiki/Karenni_language">Kayah</a> continuum (also known as Karenni or Red Karen), belonging to the Karenic branch of the Sino-Tibetan language family and spoken in Myanmar. It was invented in 1962 by Htae Bu Phae, a schoolteacher from southeastern Myanmar, to underscore Karen people's specificity against Burmese people<sup>[1]</sup>.</p>
                 <p>Kayah Li is written left to right and includes 28 base letters, 5 common vowels represented as ꤢ with diacritics, and 5 diphthongs occuring only in loanwords, represented as ꤣ with diacritics. Additionally, there are tone markers and digits.</p>
                 <div class="table-parent">
@@ -185,7 +185,7 @@
                 <div class="caption">A typographic artwork by Geoffrey Bunting<sup>[6]</sup></div>
             </div>
             <div>
-                <h2>2. Statistics</h2>
+                <h2>Statistics</h2>
                 <div class="table-parent">
                     <table class="stats" rules="all" cellpadding="5">
                         <col>
@@ -205,20 +205,26 @@
                 </div>
             </div>
             <div>
-                <h2>3. Filter Visualization</h2>
+                <h2>Filter Visualization</h2>
                 <p>For filter ids in range [100, 300], the dominant interpretable pattern is "wavy" or irregular diagonal lines. In range [300, 500], there are very few interpretable patterns, with almost all filter activations being random. In the 500+ range, there is no dominant shape, as many variants of shapes occur.</p>
                 <div class="figure-container">
-                    <img class="four" src="{{ url_for('static', filename='kayahli-512-211.png') }}">
-                    <img class="four" src="{{ url_for('static', filename='kayahli-1024-528.png') }}">
-                    <img class="four" src="{{ url_for('static', filename='kayahli-1024-555.png') }}">
-                    <img class="four" src="{{ url_for('static', filename='kayahli-1024-677.png') }}">
+                    <img style="width: 250px;" src="{{ url_for('static', filename='kayahli-512-211.png') }}">
                 </div>
                 <div class="caption">
-                    Conv3-512-211: interrupted diagonal lines. Conv3-1024-[528, 555, 677]: examples of shapes from the 500+ range.
+                    Conv3-512-211: interrupted diagonal lines.
+                </div>
+                <br>
+                <div class="figure-container">
+                    <img class="three" src="{{ url_for('static', filename='kayahli-1024-528.png') }}">
+                    <img class="three" src="{{ url_for('static', filename='kayahli-1024-555.png') }}">
+                    <img class="three" src="{{ url_for('static', filename='kayahli-1024-677.png') }}">
+                </div>
+                <div class="caption">
+                    Conv3-1024-[528, 555, 677]: examples of shapes from the 500+ range.
                 </div>
             </div>
             <div>
-                <h2>4. Citations</h2>
+                <h2>Citations</h2>
                 <p><span style="color: #0045CC;">[1]</span> Kelly, Piers. "The art of not being legible." Terrain, vol. 70, 2018, <a href="https://doi.org/10.4000/terrain.17103">doi.org/10.4000/terrain.17103</a>.</p>
                 <p><span style="color: #0045CC;">[2]</span> "Unicode 5.1.0." Unicode, <a href="https://www.unicode.org/versions/Unicode5.1.0/">www.unicode.org/versions/Unicode5.1.0/</a>.</p>
                 <p><span style="color: #0045CC;">[3]</span> "Noto Sans Kayah Li." Google Fonts, <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Kayah+Li">fonts.google.com/noto/specimen/Noto+Sans+Kayah+Li</a>.</p>
