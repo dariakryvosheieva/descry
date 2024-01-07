@@ -7,212 +7,211 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <div class="header">
-            <button><a style="color: black;" href="/">Back</a></button>
+        <button><a style="color: black;" href="/">Back</a></button>
+        <div class="main">
             <h1>N'Ko</h1>
-            <div class="hidden"></div>
-        </div>
-        <div id="input-parent">
-            <div id="input">
-                <div id="upload-text">
-                    Upload an image:
+            <div class="input-parent">
+                <div class="input">
+                    <div class="upload-text">
+                        Upload an image:
+                    </div>
+                    <div class="form">
+                        <form method="post" enctype="multipart/form-data">
+                            <input type="file" name="file">
+                            <input type="submit" value="Upload">
+                        </form>
+                    </div>
+                    <br>
+                    Model prediction: {{pred}}
                 </div>
-                <div id="form">
-                    <form method="post" enctype="multipart/form-data">
-                        <input type="file" name="file">
-                        <input type="submit" value="Upload">
-                    </form>
+            </div>
+            <div>
+                <h2>1. Introduction</h2>
+                <p><a href="https://en.wikipedia.org/wiki/N%27Ko_script">N'Ko</a> is an alphabet used to write several West African languages belonging to the <a href="https://en.wikipedia.org/wiki/Manding_languages">Manding</a> dialect continuum (such as <a href="https://en.wikipedia.org/wiki/Mandinka_language">Mandinka</a>, <a href="https://en.wikipedia.org/wiki/Bambara_language">Bambara</a>, and <a href="https://en.wikipedia.org/wiki/Dyula_language">Dyula</a>). It was invented in 1949 by a Guinean man named Soulemayne Kante in response to claims that African languages are inferior because they do not have their own writing<sup>[1]</sup>. The word N'Ko means "I say" in all Manding languages<sup>[2]</sup>.</p>
+                <p>N'Ko is written right to left and consists of 27 letters + diacritics and digits. Letters within a word are connected by a common horizontal line at the bottom (as in ߒߞߏ).</p>
+                <div class="table-parent">
+                    <table rules="all">
+                        <tr>
+                            <th width=50%>Character</th>
+                            <th width=50%>IPA</th>
+                        </tr>
+                        <tr>
+                            <td>ߊ</td>
+                            <td>a</td>
+                        </tr>
+                        <tr>
+                            <td>ߋ</td>
+                            <td>e</td>
+                        </tr>
+                        <tr>
+                            <td>ߌ</td>
+                            <td>i</td>
+                        </tr>
+                        <tr>
+                            <td>ߍ</td>
+                            <td>ɛ</td>
+                        </tr>
+                        <tr>
+                            <td>ߎ</td>
+                            <td>u</td>
+                        </tr>
+                        <tr>
+                            <td>ߏ</td>
+                            <td>o</td>
+                        </tr>
+                        <tr>
+                            <td>ߐ</td>
+                            <td>ɔ</td>
+                        </tr>
+                        <tr>
+                            <td>ߓ</td>
+                            <td>b</td>
+                        </tr>
+                        <tr>
+                            <td>ߔ</td>
+                            <td>p</td>
+                        </tr>
+                        <tr>
+                            <td>ߖ</td>
+                            <td>d͡ʒ</td>
+                        </tr>
+                        <tr>
+                            <td>ߗ</td>
+                            <td>t͡ʃ</td>
+                        </tr>
+                        <tr>
+                            <td>ߘ</td>
+                            <td>d</td>
+                        </tr>
+                        <tr>
+                            <td>ߕ</td>
+                            <td>t</td>
+                        </tr>
+                        <tr>
+                            <td>ߙ</td>
+                            <td>r</td>
+                        </tr>
+                    </table>
+                    <table rules="all">
+                        <tr>
+                            <th width=50%>Character</th>
+                            <th width=50%>IPA</th>
+                        </tr>
+                        <tr>
+                            <td>ߚ</td>
+                            <td>rr</td>
+                        </tr>
+                        <tr>
+                            <td>ߛ</td>
+                            <td>s</td>
+                        </tr>
+                        <tr>
+                            <td>ߝ</td>
+                            <td>f</td>
+                        </tr>
+                        <tr>
+                            <td>ߞ</td>
+                            <td>k</td>
+                        </tr>
+                        <tr>
+                            <td>ߟ</td>
+                            <td>l</td>
+                        </tr>
+                        <tr>
+                            <td>ߜ</td>
+                            <td>g͡b</td>
+                        </tr>
+                        <tr>
+                            <td>ߡ</td>
+                            <td>m</td>
+                        </tr>
+                        <tr>
+                            <td>ߢ</td>
+                            <td>ɲ</td>
+                        </tr>
+                        <tr>
+                            <td>ߣ</td>
+                            <td>n</td>
+                        </tr>
+                        <tr>
+                            <td>ߥ</td>
+                            <td>w</td>
+                        </tr>
+                        <tr>
+                            <td>ߦ</td>
+                            <td>j</td>
+                        </tr>
+                        <tr>
+                            <td>ߤ</td>
+                            <td>h</td>
+                        </tr>
+                        <tr>
+                            <td>ߒ</td>
+                            <td>ŋ</td>
+                        </tr>
+                    </table>
                 </div>
-                <br>
-                Model prediction: {{pred}}
+                <div class="caption">
+                    Characters considered for the project
+                </div>
+                <p>The script has been supported by Unicode since 2006<sup>[3]</sup>. A <a href="https://nqo.wikipedia.org/wiki/%DF%93%DF%8F%DF%AC%DF%9F%DF%8F%DF%B2%DF%AC%DF%98%DF%8A">Wikipedia version</a> is available. Currently there are three font families for the script: Google's Noto Sans N'Ko<sup>[4]</sup>, Adobe's Kigelia N'Ko<sup>[5]</sup>, and Tapiwanashe Garikayi's Afronik N'Ko<sup>[6]</sup>.</p>
+                <div class="figure-container">
+                    <img class="one" src="{{ url_for('static', filename='Afronik N\'Ko.png') }}">
+                </div>
+                <div class="caption">A sample text in Afronik N'Ko<sup>[6]</sup></div>
             </div>
-        </div>
-        </div>
-        <div id="1">
-            <h2>1. Introduction</h2>
-            <p><a href="https://en.wikipedia.org/wiki/N%27Ko_script">N'Ko</a> is an alphabet used to write several West African languages belonging to the <a href="https://en.wikipedia.org/wiki/Manding_languages">Manding</a> dialect continuum (such as <a href="https://en.wikipedia.org/wiki/Mandinka_language">Mandinka</a>, <a href="https://en.wikipedia.org/wiki/Bambara_language">Bambara</a>, and <a href="https://en.wikipedia.org/wiki/Dyula_language">Dyula</a>). It was invented in 1949 by a Guinean man named Soulemayne Kante in response to claims that African languages are inferior because they do not have their own writing<sup>[1]</sup>. The word N'Ko means "I say" in all Manding languages<sup>[2]</sup>.</p>
-            <p>N'Ko is written right to left and consists of 27 letters + diacritics and digits. Letters within a word are connected by a common horizontal line at the bottom (as in ߒߞߏ).</p>
-            <div class="table-parent">
-                <table rules="all">
-                    <tr>
-                        <th width=50%>Character</th>
-                        <th width=50%>IPA</th>
-                    </tr>
-                    <tr>
-                        <td>ߊ</td>
-                        <td>a</td>
-                    </tr>
-                    <tr>
-                        <td>ߋ</td>
-                        <td>e</td>
-                    </tr>
-                    <tr>
-                        <td>ߌ</td>
-                        <td>i</td>
-                    </tr>
-                    <tr>
-                        <td>ߍ</td>
-                        <td>ɛ</td>
-                    </tr>
-                    <tr>
-                        <td>ߎ</td>
-                        <td>u</td>
-                    </tr>
-                    <tr>
-                        <td>ߏ</td>
-                        <td>o</td>
-                    </tr>
-                    <tr>
-                        <td>ߐ</td>
-                        <td>ɔ</td>
-                    </tr>
-                    <tr>
-                        <td>ߓ</td>
-                        <td>b</td>
-                    </tr>
-                    <tr>
-                        <td>ߔ</td>
-                        <td>p</td>
-                    </tr>
-                    <tr>
-                        <td>ߖ</td>
-                        <td>d͡ʒ</td>
-                    </tr>
-                    <tr>
-                        <td>ߗ</td>
-                        <td>t͡ʃ</td>
-                    </tr>
-                    <tr>
-                        <td>ߘ</td>
-                        <td>d</td>
-                    </tr>
-                    <tr>
-                        <td>ߕ</td>
-                        <td>t</td>
-                    </tr>
-                    <tr>
-                        <td>ߙ</td>
-                        <td>r</td>
-                    </tr>
-                </table>
-                <table rules="all">
-                    <tr>
-                        <th width=50%>Character</th>
-                        <th width=50%>IPA</th>
-                    </tr>
-                    <tr>
-                        <td>ߚ</td>
-                        <td>rr</td>
-                    </tr>
-                    <tr>
-                        <td>ߛ</td>
-                        <td>s</td>
-                    </tr>
-                    <tr>
-                        <td>ߝ</td>
-                        <td>f</td>
-                    </tr>
-                    <tr>
-                        <td>ߞ</td>
-                        <td>k</td>
-                    </tr>
-                    <tr>
-                        <td>ߟ</td>
-                        <td>l</td>
-                    </tr>
-                    <tr>
-                        <td>ߜ</td>
-                        <td>g͡b</td>
-                    </tr>
-                    <tr>
-                        <td>ߡ</td>
-                        <td>m</td>
-                    </tr>
-                    <tr>
-                        <td>ߢ</td>
-                        <td>ɲ</td>
-                    </tr>
-                    <tr>
-                        <td>ߣ</td>
-                        <td>n</td>
-                    </tr>
-                    <tr>
-                        <td>ߥ</td>
-                        <td>w</td>
-                    </tr>
-                    <tr>
-                        <td>ߦ</td>
-                        <td>j</td>
-                    </tr>
-                    <tr>
-                        <td>ߤ</td>
-                        <td>h</td>
-                    </tr>
-                    <tr>
-                        <td>ߒ</td>
-                        <td>ŋ</td>
-                    </tr>
-                </table>
+            <div>
+                <h2>2. Statistics</h2>
+                <div class="table-parent">
+                    <table class="stats" rules="all" cellpadding="5">
+                        <col>
+                        <tr>
+                            <th style="min-width: 300px;" scope="row"># of characters in the primary dataset</th>
+                            <td style="min-width: 300px;">1242</td>
+                        </tr>
+                        <tr>
+                            <th style="min-width: 300px;" scope="row"># of trainable parameters</th>
+                            <td style="min-width: 300px;">7 476 635</td>
+                        </tr>
+                        <tr>
+                            <th style="min-width: 300px;" scope="row">Accuracy on the test set</th>
+                            <td style="min-width: 300px;">96.47%</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <div class="caption">
-                Characters considered for the project
+            <div>
+                <h2>3. Filter Visualization</h2>
+                <p>The most common interpretable pattern varies by filter id range: "wavy" diagonal lines (100-270), blurred formation in the middle (270-500), amorphous low-activation spots on high-activation background (500+).</p>
+                <div class="figure-container">
+                    <img class="three" src="{{ url_for('static', filename='nko-512-128.png') }}">
+                    <img class="three" src="{{ url_for('static', filename='nko-256-310.png') }}">
+                    <img class="three" src="{{ url_for('static', filename='nko-1024-1006.png') }}">
+                </div>
+                <div class="caption">
+                    Conv3-512-128, Conv3-256-310, and Conv3-1024-1006: examples of patterns listed above
+                </div>
+                <p>Filter 117 in all layers features an interesting maze-like pattern.</p>
+                <div class="figure-container">
+                    <img class="four" src="{{ url_for('static', filename='nko-128-117.png') }}">
+                    <img class="four" src="{{ url_for('static', filename='nko-256-117.png') }}">
+                    <img class="four" src="{{ url_for('static', filename='nko-512-117.png') }}">
+                    <img class="four" src="{{ url_for('static', filename='nko-1024-117.png') }}">
+                </div>
+                <div class="caption">
+                    Conv3-[128, 256, 512, 1024]-117: a maze pattern
+                </div>
             </div>
-            <p>The script has been supported by Unicode since 2006<sup>[3]</sup>. A <a href="https://nqo.wikipedia.org/wiki/%DF%93%DF%8F%DF%AC%DF%9F%DF%8F%DF%B2%DF%AC%DF%98%DF%8A">Wikipedia version</a> is available. Currently there are three font families for the script: Google's Noto Sans N'Ko<sup>[4]</sup>, Adobe's Kigelia N'Ko<sup>[5]</sup>, and Tapiwanashe Garikayi's Afronik N'Ko<sup>[6]</sup>.</p>
-            <div class="figure-container">
-                <img class="one" src="{{ url_for('static', filename='Afronik N\'Ko.png') }}">
+            <div>
+                <h2>4. Citations</h2>
+                <p><span style="color: #0045CC;">[1]</span> "N'Ko." Omniglot, <a href="https://www.omniglot.com/writing/nko.htm">www.omniglot.com/writing/nko.htm</a>.</p>
+                <p><span style="color: #0045CC;">[2]</span> "N'Ko." Atlas of Endangered Alphabets, <a href="https://www.endangeredalphabets.net/alphabets/nko/">www.endangeredalphabets.net/alphabets/nko/</a>.</p>
+                <p><span style="color: #0045CC;">[3]</span> "Unicode 5.0.0." Unicode, <a href="https://www.unicode.org/versions/Unicode5.0.0/">www.unicode.org/versions/Unicode5.0.0/</a>.</p>
+                <p><span style="color: #0045CC;">[4]</span> "Noto Sans N'ko." Google Fonts, <a href="https://fonts.google.com/noto/specimen/Noto+Sans+NKo">fonts.google.com/noto/specimen/Noto+Sans+NKo</a>.</p>
+                <p><span style="color: #0045CC;">[5]</span> "Kigelia N'Ko." Adobe Fonts, <a href="https://fonts.adobe.com/fonts/kigelia-nko#fonts-section">fonts.adobe.com/fonts/kigelia-nko#fonts-section</a>.</p>
+                <p><span style="color: #0045CC;">[6]</span> Garikayi, Tapiwanashe Sebastian. "Afronik N'ko Font." Behance, <a href="https://www.behance.net/gallery/113832699/Afronik-Nko-Font?locale=en_US">www.behance.net/gallery/113832699/Afronik-Nko-Font?locale=en_US</a>.</p>
             </div>
-            <div class="caption">A sample text in Afronik N'Ko<sup>[6]</sup></div>
-        </div>
-        <div id="2">
-            <h2>2. Statistics</h2>
-            <div class="table-parent">
-                <table class="stats" rules="all" cellpadding="5">
-                    <col>
-                    <tr>
-                        <th style="min-width: 300px;" scope="row"># of characters in the primary dataset</th>
-                        <td style="min-width: 300px;">1242</td>
-                    </tr>
-                    <tr>
-                        <th style="min-width: 300px;" scope="row"># of trainable parameters</th>
-                        <td style="min-width: 300px;">7 476 635</td>
-                    </tr>
-                    <tr>
-                        <th style="min-width: 300px;" scope="row">Accuracy on the test set</th>
-                        <td style="min-width: 300px;">96.47%</td>
-                      </tr>
-                </table>
-            </div>
-        </div>
-        <div id="3">
-            <h2>3. Filter Visualization</h2>
-            <p>The most common interpretable pattern varies by filter id range: "wavy" diagonal lines (100-270), blurred formation in the middle (270-500), amorphous low-activation spots on high-activation background (500+).</p>
-            <div class="figure-container">
-                <img class="three" src="{{ url_for('static', filename='nko-512-128.png') }}">
-                <img class="three" src="{{ url_for('static', filename='nko-256-310.png') }}">
-                <img class="three" src="{{ url_for('static', filename='nko-1024-1006.png') }}">
-            </div>
-            <div class="caption">
-                Conv3-512-128, Conv3-256-310, and Conv3-1024-1006: examples of patterns listed above
-            </div>
-            <p>Filter 117 in all layers features an interesting maze-like pattern.</p>
-            <div class="figure-container">
-                <img class="four" src="{{ url_for('static', filename='nko-128-117.png') }}">
-                <img class="four" src="{{ url_for('static', filename='nko-256-117.png') }}">
-                <img class="four" src="{{ url_for('static', filename='nko-512-117.png') }}">
-                <img class="four" src="{{ url_for('static', filename='nko-1024-117.png') }}">
-            </div>
-            <div class="caption">
-                Conv3-[128, 256, 512, 1024]-117: a maze pattern
-            </div>
-        </div>
-        <div id="4">
-            <h2>4. Citations</h2>
-            <p><span style="color: #0045CC;">[1]</span> "N'Ko." Omniglot, <a href="https://www.omniglot.com/writing/nko.htm">www.omniglot.com/writing/nko.htm</a>.</p>
-            <p><span style="color: #0045CC;">[2]</span> "N'Ko." Atlas of Endangered Alphabets, <a href="https://www.endangeredalphabets.net/alphabets/nko/">www.endangeredalphabets.net/alphabets/nko/</a>.</p>
-            <p><span style="color: #0045CC;">[3]</span> "Unicode 5.0.0." Unicode, <a href="https://www.unicode.org/versions/Unicode5.0.0/">www.unicode.org/versions/Unicode5.0.0/</a>.</p>
-            <p><span style="color: #0045CC;">[4]</span> "Noto Sans N'ko." Google Fonts, <a href="https://fonts.google.com/noto/specimen/Noto+Sans+NKo">fonts.google.com/noto/specimen/Noto+Sans+NKo</a>.</p>
-            <p><span style="color: #0045CC;">[5]</span> "Kigelia N'Ko." Adobe Fonts, <a href="https://fonts.adobe.com/fonts/kigelia-nko#fonts-section">fonts.adobe.com/fonts/kigelia-nko#fonts-section</a>.</p>
-            <p><span style="color: #0045CC;">[6]</span> Garikayi, Tapiwanashe Sebastian. "Afronik N'ko Font." Behance, <a href="https://www.behance.net/gallery/113832699/Afronik-Nko-Font?locale=en_US">www.behance.net/gallery/113832699/Afronik-Nko-Font?locale=en_US</a>.</p>
         </div>
     </body>
 </html>
+        

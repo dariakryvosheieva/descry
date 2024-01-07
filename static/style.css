@@ -1,16 +1,16 @@
-a{
+a {
 	color: #B200CC;
 	text-decoration: none;
 }
 
-body{
+body {
     font-family: 'Calibri', sans-serif;
     font-size: 17px;
-	margin-left: 20%;
-	margin-right: 20%;
 }
 
 button {
+	position: fixed;
+	margin-left: 10px;
 	width: 100px;
 	height: 30px;
 	font-size: 14pt;
@@ -24,8 +24,9 @@ button:hover {
     cursor: pointer;
 }
 
-div.hidden {
-	width: 100px;
+div.caption {
+	font-size: 15px;
+	text-align: center;
 }
 
 div.header {
@@ -34,29 +35,24 @@ div.header {
 	align-items: center;
 }
 
-div#input-parent{
-	background-color: #DEECFA;
-	display: flex;
-  	justify-content: center;
+div.hidden {
+	width: 100px;
 }
 
-div#input{
+div.input {
     background-color: #FFFFFF;
     border-style: solid;
     width: 440px;
     padding: 10px;
 }
 
-div#upload-text{
-    display: inline-block;
-    margin-bottom: 10px;
+div.input-parent {
+	background-color: #DEECFA;
+	display: flex;
+  	justify-content: center;
 }
 
-div#form{
-    display: inline-block;
-}
-
-div.figure-container{
+div.figure-container {
 	background-color: #DEECFA;
 	display: flex;
 	flex-direction: row;
@@ -66,12 +62,16 @@ div.figure-container{
 	flex-wrap: wrap;
 }
 
-div.caption{
-	font-size: 15px;
-	text-align: center;
+div.form {
+    display: inline-block;
 }
 
-div.table-parent{
+div.main {
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+div.table-parent {
 	background-color: #DEECFA;
 	display: flex;
 	flex-direction: row;
@@ -80,32 +80,33 @@ div.table-parent{
 	margin-bottom: 10px;
 }
 
-h1{
+div.upload-text {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+h1 {
     text-align: center;
 }
 
-img{
+img {
 	border: solid;
 }
 
-img.one{
+img.one {
 	width: 50%;
 }
 
-img.two{
+img.two {
 	width: 27%;
 	margin-right: 10px;
 }
 
-img.three{
+img.three {
 	width: 27%;
 }
 
-img#four{
-	width: 50px;
-}
-
-img.four{
+img.four {
 	width: 31%;
 	margin-right: 10px;
 }
@@ -118,22 +119,21 @@ p {
 	line-height: 1.2;
 }
 
-sup{
+sup {
 	color: #0045CC;
 }
 
-table{
+table {
 	width: 250px;
 	text-align: center;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
-table.stats {
-	text-align: left;
+tr {
+	line-height: 30px;
 }
 
-table#architecture{
-	border: 1px solid;
-	width: 300px;
+table.stats {
+	text-align: left;
 }
