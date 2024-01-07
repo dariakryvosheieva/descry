@@ -51,14 +51,16 @@ So far, the project focuses on the recognition of individual printed characters,
 The primary datasets consisted of 1200-1400 labeled 28x28 character images collected from the Internet (40-50 images per character). Within a writing system, all characters were equally represented. Wherever possible, the datasets accounted for italic and non-italic characters, various degrees of bolding, various relative sizes and positions of the character with respect to the image frame, differences in character shapes due to fonts, and 'light' versus 'dark' themes (dark character on light background or vice versa). To extract characters from raw images and convert them into a 28x28 format, we used <a href="https://www.imageresizeonline.com/convert-image-to-28x28-pixels.php">ImageResizeOnline.com</a>.
 
 <div align="center">
-  	<img src="../assets/lowercase-0061.jpg" width="150" />
-	<img src="../assets/lowercase-0285.jpg" width="150" />
-	<img src="../assets/lowercase-0425.jpg" width="150" />
-	<img src="../assets/lowercase-0481.jpg" width="150" />
+  	<img src="../assets/lowercase-0061.jpg" width="50" />
+	<img src="../assets/lowercase-0285.jpg" width="50" />
+	<img src="../assets/lowercase-0425.jpg" width="50" />
+	<img src="../assets/lowercase-0481.jpg" width="50" />
 </div>
 <div align="center">
 	Variants of the same symbol from the primary dataset (Adlam, lowercase 'b')
 </div>
+
+<br>
 
 Making the datasets suitable for training required additional preprocessing steps. First, because the color of the character or background is irrelevant to the classification task, colored images were converted into grayscale. Next, each dataset was augmented by a factor of 50 by rotating images by angles between -10° and 10°, translating them by at most 2 pixels up, down, left, or right, and scaling them by fractions of the original size between 0.93 and 1.07. Finally, each dataset was randomly shuffled, and 80% was used for training while the remaining 20% was used for evaluation.
 
