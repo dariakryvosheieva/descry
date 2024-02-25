@@ -2,7 +2,7 @@
 
 Welcome to Descry, a project that brings optical character recognition technology to rare writing systems!
 
-Currently, the project supports three alphabets: **Adlam**, **N'Ko**, and **Kayah Li**. OCR models for these alphabets have not existed before. Additional scripts may be included in the future.
+Currently, the project supports three alphabets: **Adlam**, **N'Ko**, and **Kayah Li**. Additional scripts may be included in the future.
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -15,10 +15,13 @@ Currently, the project supports three alphabets: **Adlam**, **N'Ko**, and **Kaya
         <li><a href="#methodology">Methodology</a></li>
         <ul>
             <li><a href="#datasets">Datasets</a></li>
-            <li><a href="models">Models</a></li>
+            <li><a href="#models">Models</a></li>
         </ul>
-        <li><a href="#interpretability">Interpretability</a></li>
+        <li><a href="#filter-visualizations">Filter Visualizations</a></li>
       </ul>
+    </li>
+    <li>
+      <a href="#supplementary-materials">Supplementary Materials</a>
     </li>
     <li>
       <a href="#installation-guide">Installation Guide</a>
@@ -26,7 +29,6 @@ Currently, the project supports three alphabets: **Adlam**, **N'Ko**, and **Kaya
   </ol>
 </details>
 
-<!-- OVERVIEW -->
 ## Overview
 
 ### Name
@@ -46,9 +48,9 @@ This name was chosen because its meaning related to seeing, together with its or
 
 #### Datasets
 
-So far, the project focuses on the recognition of individual printed characters, excluding digits, diacritics, and supplemental characters used only in loanwords (if present in the writing system).
+Currently, the project focuses on the recognition of individual printed characters, excluding digits, diacritics, and supplemental characters used only in loanwords (if present in the writing system).
 
-The primary datasets consisted of 1200-1400 labeled 28x28 character images collected from the Internet (40-50 images per character). Within a writing system, all characters were equally represented. Wherever possible, the datasets accounted for italic and non-italic characters, various degrees of bolding, various relative sizes and positions of the character with respect to the image frame, differences in character shapes due to fonts, and 'light' versus 'dark' themes (dark character on light background or vice versa). To extract characters from raw images and convert them into a 28x28 format, we used <a href="https://www.imageresizeonline.com/convert-image-to-28x28-pixels.php">ImageResizeOnline.com</a>.
+For each writing system, the primary dataset consisted of 1200-1400 labeled 28x28 character images collected from the Internet (40-50 images per character). Within a writing system, all characters were equally represented. Wherever possible, the datasets accounted for italic and non-italic characters, various degrees of bolding, various relative sizes and positions of the character with respect to the image frame, differences in character shapes due to different fonts, and 'light' versus 'dark' themes (dark character on light background or vice versa). To extract characters from raw images and convert them into a 28x28 format, we used <a href="https://www.imageresizeonline.com/convert-image-to-28x28-pixels.php">ImageResizeOnline.com</a>.
 
 <div align="center">
   	<img src="../assets/lowercase-0061.jpg" width="50" />
@@ -57,7 +59,7 @@ The primary datasets consisted of 1200-1400 labeled 28x28 character images colle
 	<img src="../assets/lowercase-0481.jpg" width="50" />
 </div>
 <div align="center">
-	Variants of the same symbol from the primary dataset (Adlam, lowercase 'b')
+	Variants of the same symbol (lowercase 'b') from the Adlam dataset
 </div>
 
 <br>
@@ -68,12 +70,12 @@ Making the datasets suitable for training required additional preprocessing step
   	<img src="../assets/example.png" width="150" />
 </div>
 <div align="center">
-	A sample image from the augmented dataset (Adlam, uppercase 's')
+	A sample image from an augmented dataset (Adlam, uppercase 's')
 </div>
 
 #### Models
 
-We trained a family of CNNs with the same general architecture inspired by <a href="https://www.jstage.jst.go.jp/article/transinf/E106.D/7/E106.D_2022EDL8098/_pdf/-char/en">EnsNet</a>. Compared to EnsNet, our models are simplified (most importantly lacking subnetworks) but have more output classes (corresponding to the number of letters in the alphabet). All models were trained on 10 epochs with batch size set to 64.
+We trained a family of CNNs (one per alphabet) with the same general architecture inspired by <a href="https://www.jstage.jst.go.jp/article/transinf/E106.D/7/E106.D_2022EDL8098/_pdf/-char/en">EnsNet</a>. Compared to EnsNet, our models are simplified (most importantly lacking subnetworks) but have more output classes (corresponding to the number of letters in the alphabet). All models were trained on 10 epochs with batch size set to 64.
 
 <div align="center">
 
@@ -111,7 +113,7 @@ The structure of the CNNs
 
 </div>
 
-### Interpretability
+### Filter Visualizations
 
 We used gradient ascent (code adapted from <a href="https://keras.io/examples/vision/visualizing_what_convnets_learn/">keras.io</a>) to generate artificial images that maximize filter activations.
 
@@ -180,6 +182,43 @@ Filters with the same index within a layer yield very similar activation pattern
 
 See the app for details specific to each CNN.
 
+## Supplementary Materials
+
+<table>
+  <tr>
+    <td></td>
+    <th scope="col">Adlam</th>
+    <th scope="col">N'Ko</th>
+    <th scope="col">Kayah Li</th>
+  </tr>
+  <tr>
+    <th scope="row">Dataset before augmentation</th>
+    <td><a href="../assets/adlam_raw.zip">adlam_raw.zip</a></td>
+    <td><a href="../assets/nko_raw.zip">nko_raw.zip</a></td>
+    <td><a href="../assets/kayahli_raw.zip">kayahli_raw.zip</a></td>
+  </tr>
+  <tr>
+    <th scope="row">Dataset after augmentation</th>
+    <td><a href="https://drive.google.com/file/d/19TsTVjOTMvAs_5pXGkBRRIP01ObnAW7y/view?usp=drive_link">adlam_augmented.npy</a></td>
+    <td><a href="https://drive.google.com/file/d/1GTorzYHArB6JkXRiYWqOaysVHus_Q422/view?usp=drive_link">nko_augmented.npy</a></td>
+    <td><a href="https://drive.google.com/file/d/1GJ06DbU7_05NngvNzXV-_XCCJsnDwcb-/view?usp=drive_link">kayahli_augmented.npy</a></td>
+  </tr>
+  <tr>
+    <th scope="row">Code for training the model</th>
+    <td><a href="https://colab.research.google.com/drive/1c8dMSP5c98caC9wTwaO5fkXhClkuQKBj?usp=sharing">adlam_cnn.ipynb</a></td>
+    <td><a href="https://colab.research.google.com/drive/1-1xravE86dtpqv6wSyXui3SuhBPRaJ49?usp=sharing">nko_cnn.ipynb</a></td>
+    <td><a href="https://colab.research.google.com/drive/1OssGzEgzO5MtJJ4Mumq8us9wa92S3ARN?usp=sharing">kayahli_cnn.ipynb</a></td>
+  </tr>
+  <tr>
+    <th scope="row">Code for filter visualizations</th>
+    <td><a href="https://colab.research.google.com/drive/1v9j__6EL1Dce4vhHVSvguJG_07taY-HE?usp=sharing">adlam_filter_visualizations.ipynb</a></td>
+    <td><a href="https://colab.research.google.com/drive/11A47dnhfZox6cMPqnOBxvy0MfAY0TPBK?usp=sharing">nko_filter_visualizations.ipynb</a></td>
+    <td><a href="https://colab.research.google.com/drive/1cYxxEYHyHUVhNOkeSwGfIxG2cPTu-u7_?usp=sharing">kayahli_filter_visualizations</a></td>
+  </tr>
+</table>
+
+For model weights - see the 'models' folder in the repo.
+
 ## Installation Guide
 
 ### 1. Install the repository on your local machine
@@ -192,8 +231,6 @@ Otherwise, click `<> Code` > `Download ZIP` and then unzip the folder.
 
 ### 2. Run the app
 
-Make sure you have Python and pip.
-
 To install required dependencies, open the command prompt **in the folder** and type
 ```shell
 pip install -r requirements.txt
@@ -202,4 +239,4 @@ Next, type
 ```shell
 python -m flask --app app run
 ```
-After a while, you will see something like `Running on http://127.0.0.1:5000`. Follow the link to open the web app in your browser.
+After a few seconds, you will see `Running on http://127.0.0.1:5000`. Follow the link to open the web app in your browser.
