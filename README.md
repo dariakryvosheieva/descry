@@ -141,7 +141,7 @@ Filters at small index (< 70) often have high activation along the borders and l
 
 <br>
 
-Filters at higher index have more diverse patterns. One common pattern is diagonal lines; these occur especially frequently in the Adlam CNN.
+Filters at larger index have more diverse patterns. One common pattern is diagonal lines; these occur especially frequently in the Adlam CNN.
 
 <div align="center">
   	<img src="../assets/1024-337.png" width="200" />
