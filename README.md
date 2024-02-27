@@ -223,7 +223,7 @@ For model weights - see the 'models' folder in the repo.
 
 ### 1. Install the repository on your local machine
 
-This can be done in two ways. If you have Git, clone the repo by typing the following into your command prompt:
+This can be done in two ways. If you have Git, clone the repo by pasting the following into your command prompt:
 ```shell
 git clone https://github.com/dariakryvosheieva/descry.git
 ```
@@ -231,11 +231,11 @@ Otherwise, click `<> Code` > `Download ZIP` and then unzip the folder.
 
 ### 2. Run the app
 
-To install required dependencies, open the command prompt **in the folder** and type
+To install required dependencies, open the command prompt **in the folder** and run
 ```shell
 pip install -r requirements.txt
 ```
-Next, type
+Next, run
 ```shell
 python -m flask --app app run
 ```
