@@ -22,6 +22,10 @@ Currently, the project supports three alphabets: **Adlam**, **N'Ko**, and **Kaya
     </li>
     <li>
       <a href="#supplementary-materials">Supplementary Materials</a>
+      <ul>
+	<li><a href="#data-and-code">Data and code</a></li>
+	<li><a href="statistics">STatistics</a></li>
+      </ul>
     </li>
     <li>
       <a href="#installation-guide">Installation Guide</a>
@@ -180,6 +184,8 @@ Filters located at the same index in their respective layers yield very similar 
 
 ## Supplementary Materials
 
+### Data and code
+
 <table>
   <tr>
     <td></td>
@@ -214,6 +220,35 @@ Filters located at the same index in their respective layers yield very similar 
 </table>
 
 For model weights - see the 'models' folder in the repo.
+
+### Statistics
+
+<table>
+  <tr>
+    <td></td>
+    <th scope="col">Adlam</th>
+    <th scope="col">N'Ko</th>
+    <th scope="col">Kayah Li</th>
+  </tr>
+  <tr>
+    <th scope="row"># of characters in the raw dataset</th>
+    <td>1288</td>
+    <td>1242</td>
+    <td>1320</td>
+  </tr>
+  <tr>
+    <th scope="row"># of trainable parameters</th>
+    <td>7 501 724</td>
+    <td>7 476 635</td>
+    <td>7 627 169</td>
+  </tr>
+  <tr>
+    <th scope="row">Accuracy on the test set</th>
+    <td>99.81%</td>
+    <td>96.47%</td>
+    <td>98.7%</td>
+  </tr>
+</table>
 
 ## Installation Guide
 
