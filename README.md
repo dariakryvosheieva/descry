@@ -53,13 +53,13 @@ Currently, the project focuses on the recognition of individual printed characte
 For each writing system, the primary dataset consisted of 1200-1400 labeled 28x28 character images collected from the Internet (40-50 images per character). Within a writing system, all characters were equally represented. Wherever possible, the datasets accounted for italic and non-italic characters, various degrees of bolding, various relative sizes and positions of the character with respect to the image frame, differences in character shapes due to different fonts, and 'light' versus 'dark' themes (dark character on light background or vice versa). To extract characters from raw images and convert them into a 28x28 format, we used <a href="https://www.imageresizeonline.com/convert-image-to-28x28-pixels.php">ImageResizeOnline.com</a>.
 
 <div align="center">
-  	<img src="../assets/lowercase-0061.jpg" width="70" />
-	<img src="../assets/lowercase-0285.jpg" width="70" />
-	<img src="../assets/lowercase-0425.jpg" width="70" />
-	<img src="../assets/lowercase-0481.jpg" width="70" />
+  	<img src="../assets/lowercase-0061.jpg" width="70"/>
+	<img src="../assets/lowercase-0285.jpg" width="70"/>
+	<img src="../assets/lowercase-0425.jpg" width="70"/>
+	<img src="../assets/lowercase-0481.jpg" width="70"/>
 </div>
 <div align="center">
-	Fig. 1. Variants of the same symbol (lowercase 'b') from the Adlam dataset
+	Fig. 1. Variants of the same symbol (lowercase 'b') from the Adlam dataset.
 </div>
 
 <br>
@@ -67,10 +67,10 @@ For each writing system, the primary dataset consisted of 1200-1400 labeled 28x2
 Making the datasets suitable for training required additional preprocessing steps. First, because the color of the character or background is irrelevant to the classification task, colored images were converted into grayscale. Next, each dataset was augmented by a factor of 50 by rotating images by angles between -10° and 10°, translating them by at most 2 pixels up, down, left, or right, and scaling them by fractions of the original size between 0.93 and 1.07. Finally, each dataset was randomly shuffled, and 80% was used for training while the remaining 20% was used for evaluation.
 
 <div align="center">
-  	<img src="../assets/example.png" width="200" />
+  	<img src="../assets/example.png" width="200"/>
 </div>
 <div align="center">
-	Fig. 2. A sample image from an augmented dataset (Adlam, uppercase 's')
+	Fig. 2. A sample image from an augmented dataset (Adlam, uppercase 's').
 </div>
 
 #### Models
@@ -109,78 +109,74 @@ We trained a family of CNNs (one per alphabet) with the same general architectur
 	</tr>
 </table>
 
-Fig. 3. The structure of the CNNs
+Fig. 3. The structure of the CNNs.
 
 </div>
 
 ### Filter Visualizations
 
-We used gradient ascent (code adapted from <a href="https://keras.io/examples/vision/visualizing_what_convnets_learn/">keras.io</a>) to generate artificial images that maximize filter activations. We observed that patterns in those artificial images depend heavily on the index of the corresponding filter within its convolutional layer.
+We used gradient ascent (code adapted from <a href="https://keras.io/examples/vision/visualizing_what_convnets_learn/">keras.io</a>) to generate artificial images that maximize filter activations. We observed that patterns in those artificial images depend on the index of the corresponding filter within its convolutional layer.
 
-Many activation patterns seem random; filters with random activation patterns are interspersed between those with interpretable patterns.
+Many images exhibit patterns that seem random; filters that yield random patterns are interspersed between those yielding interpretable patterns.
 
 <div align="center">
-  	<img src="../assets/nko-64-42.png" width="200" />
+  	<img src="../assets/nko-64-42.png" width="200"/>
 </div>
 <div align="center">
-	Fig. 4. N'Ko CNN, Conv3-64-42: an example of a filter with a random activation pattern.
-</div>
-
-<br>
-
-Filters at small index (< 70) often have high activation along the borders and low activation in the middle.
-
-<div align="center">
-  	<img src="../assets/kayahli-64-11.png" width="200" />
-	<img src="../assets/kayahli-128-26.png" width="200" />
-	<img src="../assets/kayahli-256-45.png" width="200" />
-</div>
-<div align="center">
-	Fig. 5. Kayah Li CNN, Conv3-[64-11, 128-26, 256-45]
+	Fig. 4. Input that maximizes the response of filter 42 in layer Conv3-64 (N'Ko CNN): an example of a random pattern.
 </div>
 
 <br>
 
-Filters at larger index have more diverse patterns. One common pattern is diagonal lines; these occur especially frequently in the Adlam CNN.
+One of the most common patterns is diagonal lines. This pattern tends to correspond to filters at index > 70 in their layers and is especially frequent in the Adlam CNN.
 
 <div align="center">
-  	<img src="../assets/1024-337.png" width="200" />
+  	<img src="../assets/1024-337.png" width="200"/>
 </div>
 <div align="center">
-	Fig. 6. Adlam CNN, Conv3-1024-337: an example of the diagonal line pattern.
-</div>
-
-<br>
-
-Filters located at the same index within their respective layers exhibit very similar activation patterns across all or most layers.
-
-<div align="center">
-  	<img src="../assets/64-37.png" width="150" />
-  	<img src="../assets/128-37.png" width="150" /> 
-  	<img src="../assets/256-37.png" width="150" />
-	<img src="../assets/512-37.png" width="150" />
-	<img src="../assets/1024-37.png" width="150" />
-</div>
-<div align="center">
-	Fig. 7. Similar across all layers: Adlam CNN, filter 37 in layers Conv3-[64, 128, 256, 512, 1024]
+	Fig. 5. Input that maximizes the response of filter 337 in layer Conv3-1024 (Adlam CNN): an example of the diagonal line pattern.
 </div>
 
 <br>
 
+Patterns get more sophisticated as index increases.
+
 <div align="center">
-  	<img src="../assets/nko-64-18.png" width="150" />
-  	<img src="../assets/nko-128-18.png" width="150" /> 
-  	<img src="../assets/nko-256-18.png" width="150" />
-	<img src="../assets/nko-512-18.png" width="150" />
-	<img src="../assets/nko-1024-18.png" width="150" />
+  	<img src="../assets/nko-128-117.png" width="200"/>
+	<img src="../assets/1024-462.png" width="200"/>
+	<img src="../assets/kayahli-1024-677.png" width="200"/>
 </div>
 <div align="center">
-	Fig. 8. Similar across most but not all layers: N'Ko CNN, filter 18 in layers Conv3-[64, 128, 256, 512, 1024] — 1024 is different, having no diagonal lines inside
+	Fig. 6. Selected images displaying complex patterns: filter 117 in layer Conv3-128 (N'Ko CNN), filter 462 in layer Conv3-1024 (Adlam CNN), filter 677 in layer Conv3-1024 (Kayah Li CNN).
 </div>
 
 <br>
 
-See the app for details specific to each CNN.
+Filters located at the same index in their respective layers yield very similar patterns.
+
+<div align="center">
+  	<img src="../assets/64-37.png" width="150"/>
+  	<img src="../assets/128-37.png" width="150"/> 
+  	<img src="../assets/256-37.png" width="150"/>
+	<img src="../assets/512-37.png" width="150"/>
+	<img src="../assets/1024-37.png" width="150"/>
+</div>
+<div align="center">
+	Fig. 7. Similar across all layers: Adlam CNN, filter 37 in layers Conv3-[64, 128, 256, 512, 1024].
+</div>
+
+<br>
+
+<div align="center">
+  	<img src="../assets/nko-64-18.png" width="150"/>
+  	<img src="../assets/nko-128-18.png" width="150"/> 
+  	<img src="../assets/nko-256-18.png" width="150"/>
+	<img src="../assets/nko-512-18.png" width="150"/>
+	<img src="../assets/nko-1024-18.png" width="150"/>
+</div>
+<div align="center">
+	Fig. 8. Similar across most but not all layers: N'Ko CNN, filter 18 in layers Conv3-[64, 128, 256, 512, 1024].
+</div>
 
 ## Supplementary Materials
 
