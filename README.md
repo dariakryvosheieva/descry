@@ -12,6 +12,9 @@ Currently, the project supports three alphabets: **Adlam**, **N'Ko**, and **Kaya
 	<a href="#name">Name</a>
     </li>
     <li>
+	<a href="#name">App Demo</a>
+    </li>
+    <li>
       <a href="#supplementary-materials">Supplementary Materials</a>
     </li>
     <li>
@@ -32,6 +35,16 @@ Currently, the project supports three alphabets: **Adlam**, **N'Ko**, and **Kaya
 > <div align="right"> <a href="https://www.merriam-webster.com/dictionary/descry">Merriam-Webster</a> </div>
 
 This name was chosen because its meaning related to seeing, together with its origins in the Latin verb 'to write', make it perfect for a project that applies computer vision to writing systems.
+
+## App Demo
+
+Use the menu on the home page to select a writing system.
+
+<div style="text-align: center;"><img style="border: 1px solid black;" width="600px" src="../assets/Screenshot 2024-06-02 145702.png"></div>
+
+You will see an interface to upload an image and get the model prediction, along with basic information about the script.
+
+<div style="text-align: center;"><img style="border: 1px solid black;" width="600px" src="../assets/Screenshot 2024-06-02 151423.png"></div>
 
 ## Supplementary Materials
 
