@@ -40,11 +40,15 @@ This name was chosen because its meaning related to seeing, together with its or
 
 Use the menu on the home page to select a writing system.
 
-<div style="text-align: center;"><img style="border: 1px solid black;" width="600px" src="../assets/Screenshot 2024-06-02 145702.png"></div>
+<p align="center">
+  <kbd><img src="../assets/Screenshot 2024-06-02 145702.png" width="600px"></kbd>
+</p>
 
 You will see an interface to upload an image and get the model prediction, along with basic information about the script.
 
-<div style="text-align: center;"><img style="border: 1px solid black;" width="600px" src="../assets/Screenshot 2024-06-02 151423.png"></div>
+<p align="center">
+  <kbd><img src="../assets/Screenshot 2024-06-02 151423.png" width="600px"></kbd>
+</p>
 
 ## Supplementary Materials
 
