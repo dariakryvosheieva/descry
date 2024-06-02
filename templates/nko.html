@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div>
-                <h2>Introduction</h2>
+                <h2>About the Script</h2>
                 <p><a href="https://en.wikipedia.org/wiki/N%27Ko_script">N'Ko</a> is an alphabet used to write several West African languages belonging to the <a href="https://en.wikipedia.org/wiki/Manding_languages">Manding</a> dialect continuum (such as <a href="https://en.wikipedia.org/wiki/Mandinka_language">Mandinka</a>, <a href="https://en.wikipedia.org/wiki/Bambara_language">Bambara</a>, and <a href="https://en.wikipedia.org/wiki/Dyula_language">Dyula</a>). It was invented in 1949 by a Guinean man named Soulemayne Kante in response to claims that African languages are inferior because they do not have their own writing<sup>[1]</sup>. The word N'Ko means "I say" in all Manding languages<sup>[2]</sup>.</p>
                 <p>N'Ko is written right to left and consists of 27 letters + diacritics and digits. Letters within a word are connected by a common horizontal line at the bottom (as in ߒߞߏ).</p>
                 <div class="table-parent">
@@ -161,49 +161,7 @@
                 <div class="caption">A sample text in Afronik N'Ko<sup>[6]</sup></div>
             </div>
             <div>
-                <h2>Statistics</h2>
-                <div class="table-parent">
-                    <table class="stats" rules="all" cellpadding="5">
-                        <col>
-                        <tr>
-                            <th style="min-width: 300px;" scope="row"># of characters in the primary dataset</th>
-                            <td style="min-width: 300px;">1242</td>
-                        </tr>
-                        <tr>
-                            <th style="min-width: 300px;" scope="row"># of trainable parameters</th>
-                            <td style="min-width: 300px;">7 476 635</td>
-                        </tr>
-                        <tr>
-                            <th style="min-width: 300px;" scope="row">Accuracy on the test set</th>
-                            <td style="min-width: 300px;">96.47%</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div>
-                <h2>Filter Visualization</h2>
-                <p>The most common interpretable pattern varies by filter id range: "wavy" diagonal lines (100-270), blurred formation in the middle (270-500), amorphous low-activation spots on high-activation background (500+).</p>
-                <div class="figure-container">
-                    <img class="three" src="{{ url_for('static', filename='nko-512-128.png') }}">
-                    <img class="three" src="{{ url_for('static', filename='nko-256-310.png') }}">
-                    <img class="three" src="{{ url_for('static', filename='nko-1024-1006.png') }}">
-                </div>
-                <div class="caption">
-                    Conv3-512-128, Conv3-256-310, and Conv3-1024-1006: examples of patterns listed above
-                </div>
-                <p>Filter 117 in all layers features an interesting maze-like pattern.</p>
-                <div class="figure-container">
-                    <img class="four" src="{{ url_for('static', filename='nko-128-117.png') }}">
-                    <img class="four" src="{{ url_for('static', filename='nko-256-117.png') }}">
-                    <img class="four" src="{{ url_for('static', filename='nko-512-117.png') }}">
-                    <img class="four" src="{{ url_for('static', filename='nko-1024-117.png') }}">
-                </div>
-                <div class="caption">
-                    Conv3-[128, 256, 512, 1024]-117: a maze pattern
-                </div>
-            </div>
-            <div>
-                <h2>Citations</h2>
+                <h2>References</h2>
                 <p><span style="color: #0045CC;">[1]</span> "N'Ko." Omniglot, <a href="https://www.omniglot.com/writing/nko.htm">www.omniglot.com/writing/nko.htm</a>.</p>
                 <p><span style="color: #0045CC;">[2]</span> "N'Ko." Atlas of Endangered Alphabets, <a href="https://www.endangeredalphabets.net/alphabets/nko/">www.endangeredalphabets.net/alphabets/nko/</a>.</p>
                 <p><span style="color: #0045CC;">[3]</span> "Unicode 5.0.0." Unicode, <a href="https://www.unicode.org/versions/Unicode5.0.0/">www.unicode.org/versions/Unicode5.0.0/</a>.</p>
