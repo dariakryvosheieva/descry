@@ -11,7 +11,7 @@ kayahli_cnn = tf.keras.models.load_model('models/kayahli.h5')
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('index.html')
 
 @app.route('/adlam')
 def adlam():
