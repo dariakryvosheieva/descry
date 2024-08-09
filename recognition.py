@@ -49,12 +49,12 @@ def initialize_model():
             if 'weight' in name:
                 param.data.fill_(1)
             continue
-    torch.save(model, f"recognition_models/{script}/{script}_initial.pth")
+    torch.save(model, f"recognition_models/{script}.pth")
 
 def train():
     train_set = torch.load(config.train_set_file)
 
-    model = torch.load(f"recognition_models/{script}/{script}_initial.pth")
+    model = torch.load(f"recognition_models/{script}.pth")
     model = torch.nn.DataParallel(model).to(device)
     model.train()
 
@@ -83,36 +83,36 @@ def train():
         cost.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), config.clip_grad_norm) 
         optimizer.step()
-        if i % config.checkpoint_interval == 0:
+        if i % config.interval == 0:
             print(f"Iteration: {i} | time: {time.time() - start_time} | loss: {cost}")
-            torch.save(model, f"recognition_models/{script}/{script}_{i}.pth")
         if i == config.num_iterations:
             break
         i += 1
-    torch.save(model, f"recognition_models/{script}/{script}_final.pth")
+    torch.save(model, f"recognition_models/{script}.pth")
         
 def test():
     test_set = torch.load(config.test_set_file)
 
-    model = torch.load(f"recognition_models/{script}/{script}_final.pth")
+    model = torch.load(f"recognition_models/{script}.pth", map_location=device)
     model = torch.nn.DataParallel(model).to(device)
     model.eval()
 
     n_correct = 0
     length_of_data = 0
 
-    for image_tensors, labels in test_set:
-        image = image_tensors.to(device)
-        batch_size = image.size(0)
-        length_of_data = length_of_data + batch_size
-        preds = model(image)
-        preds_size = torch.IntTensor([preds.size(1)] * batch_size)
-        _, preds_index = preds.max(2)
-        preds_index = preds_index.view(-1)
-        preds_str = decode(preds_index.data, preds_size.data)
-        for gt, pred in zip(labels, preds_str):
-            if pred == gt:
-                n_correct += 1
+    with torch.no_grad():
+        for image_tensors, labels in test_set:
+            image = image_tensors.to(device)
+            batch_size = image.size(0)
+            length_of_data = length_of_data + batch_size
+            preds = model(image)
+            preds_size = torch.IntTensor([preds.size(1)] * batch_size)
+            _, preds_index = preds.max(2)
+            preds_index = preds_index.view(-1)
+            preds_str = decode(preds_index.data, preds_size.data)
+            for gt, pred in zip(labels, preds_str):
+                if pred == gt:
+                    n_correct += 1
 
     accuracy = n_correct / float(length_of_data) * 100
     print(f"{accuracy = }")

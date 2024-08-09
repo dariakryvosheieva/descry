@@ -19,4 +19,4 @@ rho: 0.95
 epsilon: 0.00000001
 clip_grad_norm: 5
 num_iterations: 250000
-checkpoint_interval: 10000
+interval: 10000
