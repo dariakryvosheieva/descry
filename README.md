@@ -2,7 +2,9 @@
 
 Welcome to Descry, a project that brings optical character recognition technology to rare writing systems!
 
-Currently, the project supports three alphabets: **Adlam**, **N'Ko**, and **Kayah Li**. Additional scripts may be included in the future.
+Currently, the project supports two alphabets: **Adlam** and **Kayah Li**. More coming soon.
+
+The OCR engine uses <a href="https://github.com/clovaai/CRAFT-pytorch">CRAFT</a> to detect words on an image and CRNN to recognize individual words; see the <a href="dariakryvosheieva.github.io/pdfs/descry-project-report.pdf">technical report</a> for details. Model training code is available under the repo's `training` branch.
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -12,7 +14,7 @@ Currently, the project supports three alphabets: **Adlam**, **N'Ko**, and **Kaya
 	<a href="#name">Name</a>
     </li>
     <li>
-      <a href="#supplementary-materials">Supplementary Materials</a>
+      <a href="#app-overview">App Overview</a>
     </li>
     <li>
       <a href="#installation-guide">Installation Guide</a>
@@ -33,56 +35,26 @@ Currently, the project supports three alphabets: **Adlam**, **N'Ko**, and **Kaya
 
 This name was chosen because its meaning related to seeing, together with its origins in the Latin verb 'to write', make it perfect for a project that applies computer vision to writing systems.
 
-## Supplementary Materials
+## App Overview
 
-<table>
-  <tr>
-    <td></td>
-    <th scope="col">Adlam</th>
-    <th scope="col">N'Ko</th>
-    <th scope="col">Kayah Li</th>
-  </tr>
-  <tr>
-    <th scope="row">Dataset before augmentation</th>
-    <td><a href="../assets/adlam_raw.zip">adlam_raw.zip</a></td>
-    <td><a href="../assets/nko_raw.zip">nko_raw.zip</a></td>
-    <td><a href="../assets/kayahli_raw.zip">kayahli_raw.zip</a></td>
-  </tr>
-  <tr>
-    <th scope="row">Dataset after augmentation</th>
-    <td><a href="https://drive.google.com/file/d/19TsTVjOTMvAs_5pXGkBRRIP01ObnAW7y/view?usp=drive_link">adlam_augmented.npy</a></td>
-    <td><a href="https://drive.google.com/file/d/1GTorzYHArB6JkXRiYWqOaysVHus_Q422/view?usp=drive_link">nko_augmented.npy</a></td>
-    <td><a href="https://drive.google.com/file/d/1GJ06DbU7_05NngvNzXV-_XCCJsnDwcb-/view?usp=drive_link">kayahli_augmented.npy</a></td>
-  </tr>
-  <tr>
-    <th scope="row">Code for training the model</th>
-    <td><a href="https://colab.research.google.com/drive/1c8dMSP5c98caC9wTwaO5fkXhClkuQKBj?usp=sharing">adlam_cnn.ipynb</a></td>
-    <td><a href="https://colab.research.google.com/drive/1-1xravE86dtpqv6wSyXui3SuhBPRaJ49?usp=sharing">nko_cnn.ipynb</a></td>
-    <td><a href="https://colab.research.google.com/drive/1OssGzEgzO5MtJJ4Mumq8us9wa92S3ARN?usp=sharing">kayahli_cnn.ipynb</a></td>
-  </tr>
-  <tr>
-    <th scope="row">Code for filter visualizations</th>
-    <td><a href="https://colab.research.google.com/drive/1v9j__6EL1Dce4vhHVSvguJG_07taY-HE?usp=sharing">adlam_filter_visualizations.ipynb</a></td>
-    <td><a href="https://colab.research.google.com/drive/11A47dnhfZox6cMPqnOBxvy0MfAY0TPBK?usp=sharing">nko_filter_visualizations.ipynb</a></td>
-    <td><a href="https://colab.research.google.com/drive/1cYxxEYHyHUVhNOkeSwGfIxG2cPTu-u7_?usp=sharing">kayahli_filter_visualizations</a></td>
-  </tr>
-</table>
+Use the menu on the home page to select a writing system and upload an image containing text. The OCR engine will recognize text on the image and print it in the "Model prediction" box.
 
-For model weights - see the 'models' folder in the repo.
+<p align="center">
+  <kbd><img src="../assets/app_demo.png" width="600px"></kbd>
+</p>
 
 ## Installation Guide
 
-### 1. Install the repository on your local machine
+### 1. Install the app on your local machine
 
-This can be done in two ways. If you have Git, clone the repo by pasting the following into your command prompt:
+Clone the repo's `main` branch by pasting the following into your command prompt:
 ```shell
-git clone https://github.com/dariakryvosheieva/descry.git
+git clone -b main --single-branch https://github.com/dariakryvosheieva/descry-ocr.git
 ```
-Otherwise, click `<> Code` > `Download ZIP` and then unzip the folder.
 
 ### 2. Run the app
 
-To install required dependencies, open the command prompt **in the folder** and run
+To install required dependencies, open the command prompt in the **descry-ocr** folder and run
 ```shell
 pip install -r requirements.txt
 ```

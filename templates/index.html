@@ -1,0 +1,30 @@
+<!doctype html>
+
+<html>
+	<head>
+		<title>Descry OCR</title>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	</head>
+	<body>
+		<div id="container">
+			<h1>Welcome!</h1>
+			<form action="/" method="post" enctype="multipart/form-data">
+				<fieldset>
+					<legend>1. Select a writing system</legend>
+					<input type="radio" name="script" id="adlam" value="adlam"/><label for="adlam">Adlam</label><br/>
+					<input type="radio" name="script" id="kayahli" value="kayahli"/><label for="kayahli">Kayah Li</label><br/>
+				</fieldset>
+				<fieldset>
+					<legend>2. Upload an image</legend>
+					<input type="file" name="file" id="file">
+					<input type="submit" value="Upload">
+				</fieldset>
+				<fieldset>
+					<legend>3. Model prediction</legend>
+					{{ pred }}
+				</fieldset>
+			</form>
+		</div>
+	</body>
+</html>

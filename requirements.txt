@@ -1,4 +1,8 @@
-flask
 Pillow
+Flask
+torch
+torchvision
 numpy
-tensorflow
+math
+collections
+opencv-python

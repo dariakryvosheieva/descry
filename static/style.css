@@ -1,143 +1,26 @@
-a {
-	color: #a827d5;
-	text-decoration: none;
-}
-
-a:hover {
-	color: #ff0062;
-}
-
 body {
     font-family: 'Calibri', sans-serif;
-    font-size: 17px;
+    font-size: 12pt;
+    align-items: center;
 }
 
-button {
-	position: fixed;
-	margin-left: 10px;
-	width: 100px;
-	height: 30px;
-	font-size: 14pt;
-    border: none;
-    border-radius: 4pt;
-    background-color: #e1e1e1;
+div#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-button:hover {
-    background-color: #b6ceff;
-    cursor: pointer;
+fieldset {
+    width: 316px;
+    margin-bottom: 30px;
 }
 
-div.caption {
-	font-size: 15px;
-	text-align: center;
+legend {
+    font-size: 15pt;
 }
 
-div.header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-div.hidden {
-	width: 100px;
-}
-
-div.input {
-    background-color: #FFFFFF;
-    border-style: solid;
-    width: 440px;
-    padding: 10px;
-}
-
-div.input-parent {
-	background-color: #DEECFA;
-	display: flex;
-  	justify-content: center;
-}
-
-div.figure-container {
-	background-color: #DEECFA;
-	display: flex;
-	flex-direction: row;
-  	justify-content: center;
-	gap: 10px;
-	margin-bottom: 10px;
-	flex-wrap: wrap;
-}
-
-div.form {
-    display: inline-block;
-}
-
-div.main {
-	margin-left: 20%;
-	margin-right: 20%;
-}
-
-div.table-parent {
-	background-color: #DEECFA;
-	display: flex;
-	flex-direction: row;
-  	justify-content: center;
-	gap: 100px;
-	margin-bottom: 10px;
-}
-
-div.upload-text {
-    display: inline-block;
-    margin-bottom: 10px;
-}
-
-h1 {
-    text-align: center;
-}
-
-img {
-	border: solid;
-}
-
-img.one {
-	width: 50%;
-}
-
-img.two {
-	width: 27%;
-	margin-right: 10px;
-}
-
-img.three {
-	width: 27%;
-}
-
-img.four {
-	width: 31%;
-	margin-right: 10px;
-}
-
-img.five{
-	width: 17.5%;
-}
-
-p {
-	line-height: 1.4;
-}
-
-sup {
-	color: #0045CC;
-}
-
-table {
-	width: 250px;
-	text-align: center;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-tr {
-	line-height: 30px;
-}
-
-table.stats {
-	text-align: left;
+a {
+    text-decoration: none;
+    color: black;
 }
