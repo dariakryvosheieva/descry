@@ -1,0 +1,22 @@
+script_name: adlam
+unicode_ranges: [["1E900", "1E94B"], ["1E950", "1E959"], ["1E95E", "1E95F"]]
+right_to_left: True
+max_word_length: 10
+p_white_on_black: 0.2
+font_size: 30
+image_width: 200
+image_height: 64
+batch_size: 32
+train_set_size: 8000000
+test_set_size: 100000
+train_set_file: datasets/adlam_train.pt
+test_set_file: datasets/adlam_test.pt
+input_channel: 1
+output_channel: 256
+hidden_size: 256
+learning_rate: 1
+rho: 0.95
+epsilon: 0.00000001
+clip_grad_norm: 5
+num_iterations: 250000
+checkpoint_interval: 10000
