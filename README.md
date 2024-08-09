@@ -10,15 +10,9 @@ The OCR engine uses <a href="https://github.com/clovaai/CRAFT-pytorch">CRAFT</a>
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-	<a href="#name">Name</a>
-    </li>
-    <li>
-      <a href="#app-overview">App Overview</a>
-    </li>
-    <li>
-      <a href="#installation-guide">Installation Guide</a>
-    </li>
+    <li><a href="#name">Name</a></li>
+    <li><a href="#app-overview">App Overview</a></li>
+    <li><a href="#installation-guide">Installation Guide</a></li>
   </ol>
 </details>
 
