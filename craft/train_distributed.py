@@ -6,7 +6,6 @@ import time
 import multiprocessing as mp
 import yaml
 
-import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -15,9 +14,7 @@ from config.load_config import load_yaml, DotDict
 from data.dataset import CustomDataset
 from loss.mseloss import Maploss_v2, Maploss_v3
 from model.craft import CRAFT
-from eval import main_eval
-from metrics.eval_det_iou import DetectionIoUEvaluator
-from utils.util import copyStateDict, save_parser
+from utils.util import copyStateDict
 
 
 class Trainer(object):
@@ -76,29 +73,10 @@ class Trainer(object):
             raise Exception("Undefined loss")
         return criterion
 
-    def iou_eval(self, dataset, train_step, buffer, model):
-        test_config = DotDict(self.config.test[dataset])
-
-        val_result_dir = os.path.join(
-            self.config.results_dir, "{}/{}".format(dataset + "_iou", str(train_step))
-        )
-
-        evaluator = DetectionIoUEvaluator()
-
-        metrics = main_eval(
-            None,
-            self.config.train.backbone,
-            test_config,
-            evaluator,
-            val_result_dir,
-            buffer,
-            model,
-            self.mode,
-        )
-
     def train(self, buffer_dict):
 
         torch.cuda.set_device(self.gpu)
+        total_gpu_num = torch.cuda.device_count()
 
         # MODEL -------------------------------------------------------------------------------------------------------#
         # SUPERVISION model
@@ -108,7 +86,8 @@ class Trainer(object):
             else:
                 raise Exception("Undefined architecture")
 
-            supervision_device = self.gpu
+            # NOTE: only work on half GPU assign train / half GPU assign supervision setting
+            supervision_device = total_gpu_num // 2 + self.gpu
             if self.config.train.ckpt_path is not None:
                 supervision_param = self.get_load_param(supervision_device)
                 supervision_model.load_state_dict(
@@ -128,13 +107,13 @@ class Trainer(object):
         if self.config.train.ckpt_path is not None:
             craft.load_state_dict(copyStateDict(self.net_param["craft"]))
 
+        craft = nn.SyncBatchNorm.convert_sync_batchnorm(craft)
         craft = craft.cuda()
-        craft = torch.nn.DataParallel(craft)
+        craft = torch.nn.parallel.DistributedDataParallel(craft, device_ids=[self.gpu])
 
         torch.backends.cudnn.benchmark = True
 
         # DATASET -----------------------------------------------------------------------------------------------------#
-
 
         if self.config.train.real_dataset == "custom":
             trn_real_dataset = self.get_custom_dataset()
@@ -145,11 +124,15 @@ class Trainer(object):
             trn_real_dataset.update_model(supervision_model)
             trn_real_dataset.update_device(supervision_device)
 
+        trn_real_sampler = torch.utils.data.distributed.DistributedSampler(
+            trn_real_dataset
+        )
         trn_real_loader = torch.utils.data.DataLoader(
             trn_real_dataset,
             batch_size=self.config.train.batch_size,
             shuffle=False,
             num_workers=self.config.train.num_workers,
+            sampler=trn_real_sampler,
             drop_last=False,
             pin_memory=True,
         )
@@ -172,8 +155,8 @@ class Trainer(object):
             scaler = torch.cuda.amp.GradScaler()
 
             if (
-                    self.config.train.ckpt_path is not None
-                    and self.config.train.st_iter != 0
+                self.config.train.ckpt_path is not None
+                and self.config.train.st_iter != 0
             ):
                 scaler.load_state_dict(copyStateDict(self.net_param["scaler"]))
         else:
@@ -194,14 +177,15 @@ class Trainer(object):
             "================================ Train start ================================"
         )
         while train_step < whole_training_step:
+            trn_real_sampler.set_epoch(train_step)
             for (
-                    index,
-                    (
-                            images,
-                            region_scores,
-                            affinity_scores,
-                            confidence_masks,
-                    ),
+                index,
+                (
+                    images,
+                    region_scores,
+                    affinity_scores,
+                    confidence_masks,
+                ),
             ) in enumerate(trn_real_loader):
                 craft.train()
                 if train_step > 0 and train_step % self.config.train.lr_decay == 0:
@@ -265,7 +249,7 @@ class Trainer(object):
                 loss_value += loss.item()
                 batch_time += end_time - start_time
 
-                if train_step > 0 and train_step % 5 == 0:
+                if train_step > 0 and train_step % 5 == 0 and self.gpu == 0:
                     mean_loss = loss_value / 5
                     loss_value = 0
                     avg_batch_time = batch_time / 5
@@ -286,43 +270,40 @@ class Trainer(object):
                     )
 
                 if (
-                        train_step % self.config.train.eval_interval == 0
-                        and train_step != 0
+                    train_step % self.config.train.eval_interval == 0
+                    and train_step != 0
                 ):
 
                     craft.eval()
+                    # initialize all buffer value with zero
+                    if self.gpu == 0:
+                        for buffer in buffer_dict.values():
+                            for i in range(len(buffer)):
+                                buffer[i] = None
 
-                    print("Saving state, index:", train_step)
-                    save_param_dic = {
-                        "iter": train_step,
-                        "craft": craft.state_dict(),
-                        "optimizer": optimizer.state_dict(),
-                    }
-                    save_param_path = (
+                        print("Saving state, index:", train_step)
+                        save_param_dic = {
+                            "iter": train_step,
+                            "craft": craft.state_dict(),
+                            "optimizer": optimizer.state_dict(),
+                        }
+                        save_param_path = (
                             self.config.results_dir
                             + "/CRAFT_clr_"
                             + repr(train_step)
                             + ".pth"
-                    )
+                        )
 
-                    if self.config.train.amp:
-                        save_param_dic["scaler"] = scaler.state_dict()
-                        save_param_path = (
+                        if self.config.train.amp:
+                            save_param_dic["scaler"] = scaler.state_dict()
+                            save_param_path = (
                                 self.config.results_dir
                                 + "/CRAFT_clr_amp_"
                                 + repr(train_step)
                                 + ".pth"
-                        )
+                            )
 
-                    torch.save(save_param_dic, save_param_path)
-
-                    # validation
-                    self.iou_eval(
-                        "custom_data",
-                        train_step,
-                        buffer_dict["custom_data"],
-                        craft,
-                    )
+                        torch.save(save_param_dic, save_param_path)
 
                 train_step += 1
                 if train_step >= whole_training_step:
@@ -334,25 +315,25 @@ class Trainer(object):
                 trn_real_dataset.update_model(supervision_model)
 
         # save last model
-        save_param_dic = {
-            "iter": train_step,
-            "craft": craft.state_dict(),
-            "optimizer": optimizer.state_dict(),
-        }
-        save_param_path = (
-                self.config.results_dir + "/CRAFT_clr_" + repr(train_step) + ".pth"
-        )
-
-        if self.config.train.amp:
-            save_param_dic["scaler"] = scaler.state_dict()
+        if self.gpu == 0:
+            save_param_dic = {
+                "iter": train_step,
+                "craft": craft.state_dict(),
+                "optimizer": optimizer.state_dict(),
+            }
             save_param_path = (
+                self.config.results_dir + "/CRAFT_clr_" + repr(train_step) + ".pth"
+            )
+
+            if self.config.train.amp:
+                save_param_dic["scaler"] = scaler.state_dict()
+                save_param_path = (
                     self.config.results_dir
                     + "/CRAFT_clr_amp_"
                     + repr(train_step)
                     + ".pth"
-            )
-        torch.save(save_param_dic, save_param_path)
-
+                )
+            torch.save(save_param_dic, save_param_path)
 
 def main():
     parser = argparse.ArgumentParser(description="CRAFT custom data train")
@@ -389,17 +370,45 @@ def main():
     )
 
     if config["mode"] == "weak_supervision":
+        # NOTE: half GPU assign train / half GPU assign supervision setting
+        ngpus_per_node = torch.cuda.device_count() // 2
         mode = "weak_supervision"
     else:
+        ngpus_per_node = torch.cuda.device_count()
         mode = None
 
+    print(f"Total process num : {ngpus_per_node}")
+
+    manager = mp.Manager()
+    buffer1 = manager.list([None] * config["test"]["custom_data"]["test_set_size"])
+
+    buffer_dict = {"custom_data": buffer1}
+    torch.multiprocessing.spawn(
+        main_worker,
+        nprocs=ngpus_per_node,
+        args=(args.port, ngpus_per_node, config, buffer_dict, exp_name, mode,),
+    )
+
+
+def main_worker(gpu, port, ngpus_per_node, config, buffer_dict, exp_name, mode):
+
+    torch.distributed.init_process_group(
+        backend="nccl",
+        init_method="tcp://127.0.0.1:" + port,
+        world_size=ngpus_per_node,
+        rank=gpu,
+    )
+
+    batch_size = int(config["train"]["batch_size"] / ngpus_per_node)
+    config["train"]["batch_size"] = batch_size
     config = DotDict(config)
 
     # Start train
-    buffer_dict = {"custom_data":None}
-    trainer = Trainer(config, 0, mode)
+    trainer = Trainer(config, gpu, mode)
     trainer.train(buffer_dict)
 
+    torch.distributed.barrier()
+    torch.distributed.destroy_process_group()
 
 if __name__ == "__main__":
     main()
