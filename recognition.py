@@ -53,6 +53,7 @@ def initialize_model():
 
 def train():
     train_set = torch.load(config.train_set_file)
+    train_set_iter = iter(train_set)
 
     model = torch.load(f"recognition_models/{script}.pth")
     model = torch.nn.DataParallel(model).to(device)
@@ -69,25 +70,28 @@ def train():
     i = 0
     start_time = time.time()
     while True:
-        optimizer.zero_grad()
-        image_tensors, labels = next(iter(train_set))
-        image = image_tensors.to(device)
-        text, length = encode(labels)
-        batch_size = image.size(0)
-        preds = model(image).log_softmax(2)
-        preds_size = torch.IntTensor([preds.size(1)] * batch_size)
-        preds = preds.permute(1, 0, 2)
-        torch.backends.cudnn.enabled = False
-        cost = criterion(preds, text.to(device), preds_size.to(device), length.to(device))
-        torch.backends.cudnn.enabled = True
-        cost.backward()
-        torch.nn.utils.clip_grad_norm_(model.parameters(), config.clip_grad_norm) 
-        optimizer.step()
-        if i % config.interval == 0:
-            print(f"Iteration: {i} | time: {time.time() - start_time} | loss: {cost}")
-        if i == config.num_iterations:
-            break
-        i += 1
+        try:
+            optimizer.zero_grad()
+            image_tensors, labels = next(train_set_iter)
+            image = image_tensors.to(device)
+            text, length = encode(labels)
+            batch_size = image.size(0)
+            preds = model(image).log_softmax(2)
+            preds_size = torch.IntTensor([preds.size(1)] * batch_size)
+            preds = preds.permute(1, 0, 2)
+            torch.backends.cudnn.enabled = False
+            cost = criterion(preds, text.to(device), preds_size.to(device), length.to(device))
+            torch.backends.cudnn.enabled = True
+            cost.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), config.clip_grad_norm) 
+            optimizer.step()
+            if i % config.interval == 0:
+                print(f"Iteration: {i} | time: {time.time() - start_time} | loss: {cost}")
+            if i == config.num_iterations:
+                break
+            i += 1
+        except StopIteration:
+            train_set_iter = iter(train_set)
     torch.save(model, f"recognition_models/{script}.pth")
         
 def test():
