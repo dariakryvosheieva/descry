@@ -2,7 +2,7 @@ import time
 import torch
 
 from crnn import *
-from generate_datasets import unicode_values
+from generate_datasets import Dataset, unicode_values
 from config.load_config import load_yaml, DotDict
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -118,7 +118,7 @@ def test():
                 if pred == gt:
                     n_correct += 1
 
-    accuracy = n_correct / float(length_of_data) * 100
+    accuracy = n_correct / float(length_of_data)
     print(f"{accuracy = }")
 
 if __name__ == "__main__":
