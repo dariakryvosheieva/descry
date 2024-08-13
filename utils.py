@@ -81,7 +81,6 @@ def group_text_box(polys, slope_ths=0.1, ycenter_ths=0.5, height_ths=0.5, width_
                 combined_list.append(new_box)
                 new_box = [poly]
     combined_list.append(new_box)
-    print(combined_list)
 
     # merge list use sort again
     for boxes in combined_list:
