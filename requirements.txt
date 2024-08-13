@@ -3,6 +3,5 @@ Flask
 torch
 torchvision
 numpy
-math
 collections
 opencv-python
