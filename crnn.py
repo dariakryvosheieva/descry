@@ -1,17 +1,13 @@
 import torch.nn as nn
 
-class BidirectionalLSTM(nn.Module):
 
+class BidirectionalLSTM(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
         super(BidirectionalLSTM, self).__init__()
         self.rnn = nn.LSTM(input_size, hidden_size, bidirectional=True, batch_first=True)
         self.linear = nn.Linear(hidden_size * 2, output_size)
 
     def forward(self, input):
-        """
-        input : visual feature [batch_size x T x input_size]
-        output : contextual feature [batch_size x T x output_size]
-        """
         try:
             self.rnn.flatten_parameters()
         except:
@@ -20,8 +16,8 @@ class BidirectionalLSTM(nn.Module):
         output = self.linear(recurrent)
         return output
 
-class VGG_FeatureExtractor(nn.Module):
 
+class VGG_FeatureExtractor(nn.Module):
     def __init__(self, input_channel, output_channel=256):
         super(VGG_FeatureExtractor, self).__init__()
         self.output_channel = [int(output_channel / 8), int(output_channel / 4),
@@ -45,8 +41,8 @@ class VGG_FeatureExtractor(nn.Module):
     def forward(self, input):
         return self.ConvNet(input)
 
-class Model(nn.Module):
 
+class Model(nn.Module):
     def __init__(self, input_channel, output_channel, hidden_size, num_class):
         super(Model, self).__init__()
         """ FeatureExtraction """
@@ -62,7 +58,6 @@ class Model(nn.Module):
 
         """ Prediction """
         self.Prediction = nn.Linear(self.SequenceModeling_output, num_class)
-
 
     def forward(self, input):
         """ Feature extraction stage """

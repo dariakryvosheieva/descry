@@ -1,10 +1,11 @@
-from PIL import Image
+import math
 import torch
 import torch.utils.data
-import torchvision.transforms as transforms
-import math
+from torchvision import transforms
+from PIL import Image
 
-class NormalizePAD(object):
+
+class NormalizePAD:
     def __init__(self, max_size, PAD_type='center'):
         self.toTensor = transforms.ToTensor()
         self.max_size = max_size
@@ -15,20 +16,21 @@ class NormalizePAD(object):
         img = self.toTensor(img)
         img.sub_(0.5).div_(0.5)
         c, h, w = img.size()
-        Pad_img = torch.FloatTensor(*self.max_size).fill_(0)
+        pad_img = torch.FloatTensor(*self.max_size).fill_(0)
         qty = (self.max_size[2] - w) // 2
-        Pad_img[:, :, qty:qty+w] = img  # center pad
-        if self.max_size[2] != w:  # add border Pad
-            Pad_img[:, :, w:] = img[:, :, w - 1].unsqueeze(2).expand(c, h, self.max_size[2] - w)
-        return Pad_img
+        pad_img[:, :, qty:qty+w] = img
+        if self.max_size[2] != w:
+            pad_img[:, :, w:] = img[:, :, w - 1].unsqueeze(2).expand(c, h, self.max_size[2] - w)
+        return pad_img
+
 
 class ListDataset(torch.utils.data.Dataset):
     def __init__(self, image_list):
         self.image_list = image_list
-        self.nSamples = len(image_list)
+        self.n_samples = len(image_list)
 
     def __len__(self):
-        return self.nSamples
+        return self.n_samples
 
     def __getitem__(self, index):
         img = self.image_list[index]
@@ -64,9 +66,11 @@ class AlignCollate(object):
 
         image_tensors = torch.cat([t.unsqueeze(0) for t in resized_images], 0)
         return image_tensors
-    
+
+
 def get_recognizer(filepath, device):
     return torch.load(filepath, map_location=device).module.to(device)
+
 
 def recognizer_predict(model, converter, test_loader, device):
     model.eval()
@@ -83,6 +87,7 @@ def recognizer_predict(model, converter, test_loader, device):
             for pred in preds_str:
                 result.append(pred)
     return result
+
 
 def get_text(recognizer, converter, image_list, device="cpu"):
     img_list = [item[1] for item in image_list]

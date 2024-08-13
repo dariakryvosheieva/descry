@@ -2,18 +2,14 @@ import torch
 
 from detection import get_detector, get_textbox
 from recognition import get_recognizer, get_text
-from utils import group_text_box, get_image_list, diff
+from utils import concatenate, group_text_box, get_image_list, diff
+
 
 unicode_ranges = {
-    "kayahli": [["A900", "A92F"]],
-    "adlam": [["1E900", "1E94B"], ["1E950", "1E959"], ["1E95E", "1E95F"]]
+    "adlam": [["1E900", "1E94B"], ["1E950", "1E959"], ["1E95E", "1E95F"]],
+    "kayahli": [["A900", "A92F"]]
 }
 
-def concatenate(unicode_ranges):
-    rng = []
-    for unicode_range in unicode_ranges:
-        rng += list(range(int(unicode_range[0], 16), int(unicode_range[1], 16) + 1))
-    return rng
 
 class Converter:
     def __init__(self, script):
@@ -29,12 +25,13 @@ class Converter:
             for i in range(l):
                 if (t[i] != 0) and (not (i > 0 and t[i - 1] == t[i])):
                     char_list.append(self.labels_to_chars[t[i]])
-            text = ''.join(char_list)
+            text = "".join(char_list)
             texts.append(text)
             index += l
         return texts
 
-class Reader(object):
+
+class Reader:
     def __init__(self, script):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.detector = get_detector(f"detection_models/{script}.pth", self.device)
@@ -46,8 +43,12 @@ class Reader(object):
         horizontal_list_agg, free_list_agg = [], []
         for text_box in text_box_list:
             horizontal_list, free_list = group_text_box(text_box)
-            horizontal_list_agg.append([i for i in horizontal_list if max(i[1] - i[0], i[3] - i[2]) > min_size])
-            free_list_agg.append([i for i in free_list if max(diff([c[0] for c in i]), diff([c[1] for c in i])) > min_size])
+            horizontal_list_agg.append(
+                [i for i in horizontal_list if max(i[1] - i[0], i[3] - i[2]) > min_size]
+            )
+            free_list_agg.append(
+                [i for i in free_list if max(diff([c[0] for c in i]), diff([c[1] for c in i])) > min_size]
+            )
         return horizontal_list_agg, free_list_agg
 
     def recognize(self, img, horizontal_list=None, free_list=None):

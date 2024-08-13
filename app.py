@@ -3,11 +3,14 @@ from flask import Flask, render_template, request
 
 from descry import Reader
 
+
 app = Flask(__name__)
+
 
 @app.route("/")
 def home():
     return render_template("index.html", pred="(will appear here)")
+
 
 @app.route("/", methods=["post"])
 def select_script():
