@@ -4,7 +4,7 @@ Welcome to Descry, a project that brings optical character recognition technolog
 
 Currently, the project supports two alphabets: **Adlam** and **Kayah Li**. More coming soon.
 
-The OCR engine uses <a href="https://github.com/clovaai/CRAFT-pytorch">CRAFT</a> to detect words on an image and CRNN to recognize individual words; see the <a href="dariakryvosheieva.github.io/pdfs/descry-project-report.pdf">technical report</a> for details. Model training code is available under the repo's `training` branch.
+The OCR engine uses <a href="https://github.com/clovaai/CRAFT-pytorch">CRAFT</a> to detect words on an image and CRNN to recognize individual words; see the <a href="../assets/descry-project-report.pdf">technical report</a> for details. Model training code is available under the repo's `training` branch.
 
 <!-- TABLE OF CONTENTS -->
 <details>
