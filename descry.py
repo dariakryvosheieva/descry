@@ -5,7 +5,8 @@ from recognition import get_recognizer, get_text
 from utils import group_text_box, get_image_list, diff
 
 unicode_ranges = {
-    "kayahli": [["A900", "A92F"]]
+    "kayahli": [["A900", "A92F"]],
+    "adlam": [["1E900", "1E94B"], ["1E950", "1E959"], ["1E95E", "1E95F"]]
 }
 
 def concatenate(unicode_ranges):
