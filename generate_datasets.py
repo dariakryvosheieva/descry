@@ -1,3 +1,4 @@
+import os
 import random
 
 import torch
@@ -45,6 +46,8 @@ def generate_dataset(size, filepath):
         batch_size=config.batch_size,
         shuffle=False # images already in no particular order
     )
+    if not os.path.exists("datasets"):
+        os.makedirs("datasets")
     torch.save(dataloader, filepath)
 
 

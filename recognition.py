@@ -1,3 +1,4 @@
+import os
 import time
 
 import torch
@@ -54,6 +55,8 @@ def initialize_model():
             if 'weight' in name:
                 param.data.fill_(1)
             continue
+    if not os.path.exists("recognition_models"):
+        os.makedirs("recognition_models")
     torch.save(model, f"recognition_models/{script}.pth")
 
 

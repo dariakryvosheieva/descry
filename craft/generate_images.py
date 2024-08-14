@@ -108,6 +108,12 @@ def draw_random_strings(dataset, i):
 
 
 if __name__ == "__main__":
+    if not os.path.exists("data_root_dir"):
+        os.makedirs("data_root_dir")
+        for dataset in ["training", "test"]:
+            for file_type in ["images", "localization_transcription_gt"]:
+                os.makedirs(f"data_root_dir/{dataset}/{file_type}")
+
     num_training_images = int(config.num_images * config.fraction_train)
     num_test_images = int(config.num_images * (1 - config.fraction_train))
 
