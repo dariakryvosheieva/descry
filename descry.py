@@ -10,6 +10,8 @@ unicode_ranges = {
     "kayahli": [["A900", "A92F"]]
 }
 
+right_to_left = ["adlam"]
+
 
 class Converter:
     def __init__(self, script):
@@ -33,6 +35,7 @@ class Converter:
 
 class Reader:
     def __init__(self, script):
+        self.script = script
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.detector = get_detector(f"detection_models/{script}.pth", self.device)
         self.recognizer = get_recognizer(f"recognition_models/{script}.pth", self.device)
@@ -75,4 +78,6 @@ class Reader:
         horizontal_list, free_list = self.detect(image)
         horizontal_list, free_list = horizontal_list[0], free_list[0]
         result = self.recognize(image, horizontal_list, free_list)
+        if self.script in right_to_left:
+            result = [string[::-1] for string in result]
         return result

@@ -34,11 +34,12 @@ def get_detector(filepath, device):
 def process_for_detection(image, canvas_size=512):
     background_color = image.getpixel((0, 0))
     canvas = Image.new("RGB", (canvas_size, canvas_size), background_color)
-    mag_factor = 512 / max(image.width, image.height)
-    image = image.resize((int(image.width * mag_factor), int(image.height * mag_factor)))
+    target_size = min(max(image.width, image.height), canvas_size)
+    ratio = target_size / max(image.width, image.height)
+    image = image.resize((int(image.width * ratio), int(image.height * ratio)))
     canvas.paste(image, (0, 0))
     trans = transforms.Compose([transforms.ToTensor()])
-    return torch.cat([trans(canvas).unsqueeze(0)], 0)
+    return torch.cat([trans(canvas).unsqueeze(0)], 0), ratio
 
 
 def get_det_boxes(textmap, linkmap, text_threshold=0.7, link_threshold=0.4, low_text=0.4):
@@ -100,8 +101,16 @@ def get_det_boxes(textmap, linkmap, text_threshold=0.7, link_threshold=0.4, low_
     return boxes
 
 
+def adjust_result_coordinates(boxes, ratio, ratio_net=2):
+    if len(boxes) > 0:
+        boxes = np.array(boxes)
+        for k in range(len(boxes)):
+            boxes[k] *= (ratio_net / ratio, ratio_net / ratio)
+    return boxes
+
+
 def test_net(net, image, device):
-    image = process_for_detection(image)
+    image, ratio = process_for_detection(image)
     image = image.to(device)
     with torch.no_grad():
         y, features = net(image)
@@ -109,7 +118,9 @@ def test_net(net, image, device):
     for out in y:
         score_text = out[:, :, 0].cpu().data.numpy()
         score_link = out[:, :, 1].cpu().data.numpy()
-        boxes_list.append(get_det_boxes(score_text, score_link))
+        boxes = get_det_boxes(score_text, score_link)
+        boxes = adjust_result_coordinates(boxes, ratio)
+        boxes_list.append(boxes)
     return boxes_list
 
 

@@ -149,7 +149,7 @@ def calculate_ratio(width, height):
 def compute_ratio_and_resize(img, width, height, model_height):
     ratio = width / height
     if ratio < 1.0:
-        ratio = calculate_ratio(width, height)
+        ratio = 1. / ratio
         img = cv2.resize(
             img,
             (model_height, int(model_height * ratio)),
@@ -174,9 +174,7 @@ def get_image_list(horizontal_list, free_list, img, model_height=64):
         transformed_img = four_point_transform(img, rect)
         ratio = calculate_ratio(transformed_img.shape[1], transformed_img.shape[0])
         new_width = int(model_height * ratio)
-        if new_width == 0:
-            pass
-        else:
+        if new_width != 0:
             crop_img, ratio = compute_ratio_and_resize(
                 transformed_img, transformed_img.shape[1], transformed_img.shape[0], model_height
             )
@@ -192,9 +190,7 @@ def get_image_list(horizontal_list, free_list, img, model_height=64):
         height = y_max - y_min
         ratio = calculate_ratio(width, height)
         new_width = int(model_height * ratio)
-        if new_width == 0:
-            pass
-        else:
+        if new_width != 0:
             crop_img, ratio = compute_ratio_and_resize(
                 crop_img, width, height, model_height
             )
