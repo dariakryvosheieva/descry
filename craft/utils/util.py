@@ -140,3 +140,10 @@ def save_parser(args):
         opt_log += "---------------------------------------\n"
         print(opt_log)
         opt_file.write(opt_log)
+
+
+def concatenate(unicode_ranges):
+    rng = []
+    for unicode_range in unicode_ranges:
+        rng += list(range(int(unicode_range[0], 16), int(unicode_range[1], 16) + 1))
+    return rng

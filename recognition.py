@@ -1,9 +1,11 @@
 import time
+
 import torch
 
 from crnn import *
 from generate_datasets import Dataset, unicode_values
 from config.load_config import load_yaml, DotDict
+
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -17,11 +19,13 @@ labels_to_chars = ["blank"] + [chr(unicode_value) for unicode_value in unicode_v
 
 chars_to_labels = {char: i for i, char in enumerate(labels_to_chars)}
 
+
 def encode(text):
     length = [len(s) for s in text]
     text = ''.join(text)
     text = [chars_to_labels[char] for char in text]
     return torch.IntTensor(text), torch.IntTensor(length)
+
 
 def decode(text_index, length):
     texts = []
@@ -37,6 +41,7 @@ def decode(text_index, length):
         index += l
     return texts
 
+
 def initialize_model():
     model = Model(config.input_channel, config.output_channel, config.hidden_size, num_chars + 1).to(device)
     for name, param in model.named_parameters():
@@ -50,6 +55,7 @@ def initialize_model():
                 param.data.fill_(1)
             continue
     torch.save(model, f"recognition_models/{script}.pth")
+
 
 def train():
     train_set = torch.load(config.train_set_file)
@@ -65,7 +71,9 @@ def train():
 
     criterion = torch.nn.CTCLoss(zero_infinity=True).to(device)
 
-    optimizer = torch.optim.Adadelta(filtered_parameters, lr=config.learning_rate, rho=config.rho, eps=config.epsilon)
+    optimizer = torch.optim.Adadelta(
+        filtered_parameters, lr=config.learning_rate, rho=config.rho, eps=config.epsilon
+    )
 
     i = 0
     start_time = time.time()
@@ -93,7 +101,8 @@ def train():
         except StopIteration:
             train_set_iter = iter(train_set)
     torch.save(model, f"recognition_models/{script}.pth")
-        
+
+
 def test():
     test_set = torch.load(config.test_set_file)
 
@@ -120,6 +129,7 @@ def test():
 
     accuracy = n_correct / float(length_of_data)
     print(f"{accuracy = }")
+
 
 if __name__ == "__main__":
     initialize_model()

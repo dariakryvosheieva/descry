@@ -8,7 +8,6 @@ import numpy as np
 import torch
 import torch.backends.cudnn as cudnn
 from tqdm import tqdm
-import wandb
 
 from config.load_config import load_yaml, DotDict
 from model.craft import CRAFT
